@@ -2,8 +2,8 @@
 
 #include "../../../datatypes/Additive_Share.hpp"
 #include "../../../datatypes/float_fixed_converter.hpp"
-#include "../Relu.hpp"
 #include "../comparisons.hpp"
+#include "../exact_truncation.hpp"
 #include "../max_min.hpp"
 
 #include <algorithm>
@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <fstream>
+#include <limits>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -93,6 +94,21 @@ void multiply_fixed(const AShare<Share>* lhs, const AShare<Share>* rhs, AShare<S
 }
 
 template <typename Share>
+void multiply_bit_fixed(const AShare<Share>* bit, const AShare<Share>* value, AShare<Share>* out, int len)
+{
+    // `bit` is an arithmetic 0/1, not a Q12.20 value. Therefore bit*value
+    // already has Q12.20 scale and must not be truncated.
+    for (int i = 0; i < len; ++i)
+    {
+        out[i] = bit[i].prepare_dot(value[i]);
+        out[i].mask_and_send_dot_without_trunc();
+    }
+    Share::communicate();
+    for (int i = 0; i < len; ++i)
+        out[i].complete_mult_without_trunc();
+}
+
+template <typename Share>
 void divide_power_of_two(const AShare<Share>* in, int denominator, AShare<Share>* out, int len)
 {
 #if TRUNC_APPROACH == 2
@@ -126,6 +142,7 @@ void negative_exp(const AShare<Share>* delta, AShare<Share>* out, int len)
 
     std::vector<A> above_lower(len);
     std::vector<A> below_lower(len);
+    std::vector<A> active(len);
     std::vector<A> clipped(len);
     for (int i = 0; i < len; ++i)
         above_lower[i] = delta[i] - A(lower_fixed);
@@ -135,8 +152,11 @@ void negative_exp(const AShare<Share>* delta, AShare<Share>* out, int len)
     pack_additive<0, BITLENGTH>(
         above_lower.data(), below_lower.data(), len, LTZ<0, BITLENGTH, Share, DATATYPE>);
 
-    // max(delta, lower) = lower + ReLU(delta-lower).
-    RELU<0, BITLENGTH, Share, DATATYPE>(above_lower.data(), above_lower.data() + len, clipped.data());
+    // Reuse the LTZ result instead of invoking a second DReLU/MSB path:
+    // max(delta, lower) = lower + (delta>=lower)*(delta-lower).
+    for (int i = 0; i < len; ++i)
+        active[i] = A(UINT_TYPE(1)) - below_lower[i];
+    multiply_bit_fixed<Share>(active.data(), above_lower.data(), clipped.data(), len);
     for (int i = 0; i < len; ++i)
         clipped[i] = clipped[i] + A(lower_fixed);
 
@@ -163,12 +183,8 @@ void negative_exp(const AShare<Share>* delta, AShare<Share>* out, int len)
         std::copy(squared.begin(), squared.end(), out);
     }
 
-    // Convert active=(delta>=lower) from arithmetic integer 0/1 to fixed 0/1,
-    // then apply it so the clipped tail becomes exactly zero.
-    std::vector<A> active_fixed(len);
-    for (int i = 0; i < len; ++i)
-        active_fixed[i] = (A(UINT_TYPE(1)) - below_lower[i]).mult_public(one_fixed);
-    multiply_fixed<Share>(out, active_fixed.data(), squared.data(), len);
+    // Apply the same arithmetic bit so the clipped tail becomes exactly zero.
+    multiply_bit_fixed<Share>(active.data(), out, squared.data(), len);
     std::copy(squared.begin(), squared.end(), out);
 }
 
@@ -289,41 +305,103 @@ struct TensorHeader
     std::uint32_t key_len;
 };
 
+struct TensorData
+{
+    TensorHeader header;
+    std::vector<float> values;
+};
+
+struct TensorPartHeader
+{
+    TensorHeader tensor;
+    std::uint32_t logical_row_begin;
+    std::uint32_t logical_row_count;
+};
+
 inline const char* env_or_default(const char* name, const char* fallback)
 {
     const char* value = std::getenv(name);
     return value == nullptr ? fallback : value;
 }
 
-inline std::vector<float> read_input_file(const std::string& path)
+inline int positive_env_int(const char* name, int fallback)
+{
+    const char* value = std::getenv(name);
+    if (value == nullptr)
+        return fallback;
+    char* end = nullptr;
+    const long parsed = std::strtol(value, &end, 10);
+    if (end == value || *end != '\0' || parsed <= 0 || parsed > std::numeric_limits<int>::max())
+        throw std::runtime_error(std::string(name) + " must be a positive integer");
+    return static_cast<int>(parsed);
+}
+
+inline void validate_tensor_header(const TensorHeader& header)
+{
+    if (header.batch == 0 || header.heads == 0 || header.query_len == 0 || header.key_len == 0 ||
+        header.key_len > 128)
+        throw std::runtime_error("softmax tensor dimensions must be positive and key_len must be <= 128");
+}
+
+inline TensorHeader read_tensor_header(const std::string& path)
 {
     std::ifstream in(path, std::ios::binary);
     if (!in)
         throw std::runtime_error("cannot open softmax input: " + path);
     TensorHeader header{};
     in.read(reinterpret_cast<char*>(&header), sizeof(header));
-    if (!in || header.batch != SOFTMAX_BATCH || header.heads != SOFTMAX_HEADS ||
-        header.query_len != SOFTMAX_QUERY_LEN || header.key_len != SOFTMAX_KEY_LEN)
-        throw std::runtime_error("softmax input header does not match compile-time shape");
-    const std::size_t count = static_cast<std::size_t>(header.batch) * header.heads * header.query_len * header.key_len;
-    std::vector<float> values(count);
-    in.read(reinterpret_cast<char*>(values.data()), static_cast<std::streamsize>(count * sizeof(float)));
-    if (!in || in.peek() != std::ifstream::traits_type::eof())
-        throw std::runtime_error("softmax input payload has the wrong byte length");
-    return values;
+    if (!in)
+        throw std::runtime_error("cannot read softmax input header: " + path);
+    validate_tensor_header(header);
+    return header;
 }
 
-inline void write_output_file(const std::string& path, const std::vector<float>& values)
+inline TensorData read_input_file(const std::string& path)
+{
+    std::ifstream in(path, std::ios::binary);
+    if (!in)
+        throw std::runtime_error("cannot open softmax input: " + path);
+    TensorData tensor{};
+    in.read(reinterpret_cast<char*>(&tensor.header), sizeof(tensor.header));
+    if (!in)
+        throw std::runtime_error("cannot read softmax input header: " + path);
+    validate_tensor_header(tensor.header);
+    const TensorHeader& header = tensor.header;
+    const std::size_t count = static_cast<std::size_t>(header.batch) * header.heads * header.query_len * header.key_len;
+    tensor.values.resize(count);
+    in.read(reinterpret_cast<char*>(tensor.values.data()), static_cast<std::streamsize>(count * sizeof(float)));
+    if (!in || in.peek() != std::ifstream::traits_type::eof())
+        throw std::runtime_error("softmax input payload has the wrong byte length");
+    return tensor;
+}
+
+inline void write_output_file(const std::string& path, const TensorHeader& header, const std::vector<float>& values)
 {
     std::ofstream out(path, std::ios::binary | std::ios::trunc);
     if (!out)
         throw std::runtime_error("cannot open softmax output: " + path);
-    const TensorHeader header{SOFTMAX_BATCH, SOFTMAX_HEADS, SOFTMAX_QUERY_LEN, SOFTMAX_KEY_LEN};
     out.write(reinterpret_cast<const char*>(&header), sizeof(header));
     out.write(reinterpret_cast<const char*>(values.data()),
               static_cast<std::streamsize>(values.size() * sizeof(float)));
     if (!out)
         throw std::runtime_error("failed to write softmax output: " + path);
+}
+
+inline void write_output_part(const std::string& path,
+                              const TensorHeader& tensor,
+                              std::uint32_t logical_row_begin,
+                              std::uint32_t logical_row_count,
+                              const std::vector<float>& values)
+{
+    std::ofstream out(path, std::ios::binary | std::ios::trunc);
+    if (!out)
+        throw std::runtime_error("cannot open softmax output part: " + path);
+    const TensorPartHeader header{tensor, logical_row_begin, logical_row_count};
+    out.write(reinterpret_cast<const char*>(&header), sizeof(header));
+    out.write(reinterpret_cast<const char*>(values.data()),
+              static_cast<std::streamsize>(values.size() * sizeof(float)));
+    if (!out)
+        throw std::runtime_error("failed to write softmax output part: " + path);
 }
 }  // namespace transformer_mpc
 
@@ -334,38 +412,53 @@ template <typename Share>
 void softmax_mpc_program(DATATYPE* result)
 {
     using A = transformer_mpc::AShare<Share>;
-    constexpr int logical_rows = SOFTMAX_BATCH * SOFTMAX_HEADS * SOFTMAX_QUERY_LEN;
-    constexpr int row_width = SOFTMAX_KEY_LEN;
     constexpr int lanes = DATTYPE / BITLENGTH;
-    constexpr int packed_rows = (logical_rows + lanes - 1) / lanes;
-    constexpr int packed_elements = packed_rows * row_width;
+    const std::string input_path =
+        transformer_mpc::env_or_default("HPMPC_SOFTMAX_INPUT", "/tmp/hpmpc_softmax_input.bin");
+    const std::string output_path =
+        transformer_mpc::env_or_default("HPMPC_SOFTMAX_OUTPUT", "/tmp/hpmpc_softmax_output.bin");
+    const transformer_mpc::TensorHeader header = transformer_mpc::read_tensor_header(input_path);
+    const int logical_rows = static_cast<int>(header.batch * header.heads * header.query_len);
+    const int row_width = static_cast<int>(header.key_len);
+    const int total_packed_rows = (logical_rows + lanes - 1) / lanes;
+    const int total_workers = transformer_mpc::positive_env_int("HPMPC_SOFTMAX_TOTAL_WORKERS", 1);
+    const int worker = process_offset;
+    if (worker < 0 || worker >= total_workers)
+        throw std::runtime_error("process_offset is outside HPMPC_SOFTMAX_TOTAL_WORKERS");
+    const int packed_row_begin = total_packed_rows * worker / total_workers;
+    const int packed_row_end = total_packed_rows * (worker + 1) / total_workers;
+    const int packed_rows = packed_row_end - packed_row_begin;
+    if (packed_rows <= 0)
+        throw std::runtime_error("too many Softmax workers for the number of SIMD-packed rows");
+    const int packed_elements = packed_rows * row_width;
 
     std::vector<float> plaintext;
 #if PARTY == 0
     if (current_phase == PHASE_LIVE)
-        plaintext = transformer_mpc::read_input_file(
-            transformer_mpc::env_or_default("HPMPC_SOFTMAX_INPUT", "/tmp/hpmpc_softmax_input.bin"));
+        plaintext = transformer_mpc::read_input_file(input_path).values;
 #endif
 
     std::vector<DATATYPE> packed_input(packed_elements);
 #if PARTY == 0
     if (current_phase == PHASE_LIVE)
     {
-        for (int packed_row = 0; packed_row < packed_rows; ++packed_row)
+        for (int local_packed_row = 0; local_packed_row < packed_rows; ++local_packed_row)
         {
+            const int global_packed_row = packed_row_begin + local_packed_row;
             for (int col = 0; col < row_width; ++col)
             {
                 alignas(sizeof(DATATYPE)) std::array<UINT_TYPE, lanes> lane_values{};
                 for (int lane = 0; lane < lanes; ++lane)
                 {
-                    const int logical_row = packed_row * lanes + lane;
+                    const int logical_row = global_packed_row * lanes + lane;
                     if (logical_row < logical_rows)
                     {
                         const float value = plaintext[static_cast<std::size_t>(logical_row) * row_width + col];
                         lane_values[lane] = transformer_mpc::fixed(static_cast<FLOATTYPE>(value));
                     }
                 }
-                orthogonalize_arithmetic(lane_values.data(), &packed_input[packed_row * row_width + col], 1);
+                orthogonalize_arithmetic(
+                    lane_values.data(), &packed_input[local_packed_row * row_width + col], 1);
             }
         }
     }
@@ -391,30 +484,40 @@ void softmax_mpc_program(DATATYPE* result)
         revealed[i] = shared_output[i].complete_reveal_to_all();
     *result = revealed[0];
 
-#if PARTY == 0
     if (current_phase == PHASE_LIVE)
     {
-        std::vector<float> output(static_cast<std::size_t>(logical_rows) * row_width);
-        for (int packed_row = 0; packed_row < packed_rows; ++packed_row)
+        const int logical_row_begin = packed_row_begin * lanes;
+        const int logical_row_end = std::min(logical_rows, packed_row_end * lanes);
+        const int local_logical_rows = logical_row_end - logical_row_begin;
+        std::vector<float> output(static_cast<std::size_t>(local_logical_rows) * row_width);
+        for (int local_packed_row = 0; local_packed_row < packed_rows; ++local_packed_row)
         {
+            const int global_packed_row = packed_row_begin + local_packed_row;
             for (int col = 0; col < row_width; ++col)
             {
                 alignas(sizeof(DATATYPE)) std::array<UINT_TYPE, lanes> lane_values{};
-                unorthogonalize_arithmetic(&revealed[packed_row * row_width + col], lane_values.data(), 1);
+                unorthogonalize_arithmetic(
+                    &revealed[local_packed_row * row_width + col], lane_values.data(), 1);
                 for (int lane = 0; lane < lanes; ++lane)
                 {
-                    const int logical_row = packed_row * lanes + lane;
+                    const int logical_row = global_packed_row * lanes + lane;
                     if (logical_row < logical_rows)
                     {
-                        output[static_cast<std::size_t>(logical_row) * row_width + col] =
+                        output[static_cast<std::size_t>(logical_row - logical_row_begin) * row_width + col] =
                             FloatFixedConverter<FLOATTYPE, INT_TYPE, UINT_TYPE, FRACTIONAL>::ufixed_to_float(
                                 lane_values[lane]);
                     }
                 }
             }
         }
-        transformer_mpc::write_output_file(
-            transformer_mpc::env_or_default("HPMPC_SOFTMAX_OUTPUT", "/tmp/hpmpc_softmax_output.bin"), output);
+        if (total_workers == 1)
+            transformer_mpc::write_output_file(output_path, header, output);
+        else
+            transformer_mpc::write_output_part(output_path + ".part-" + std::to_string(worker) + "-of-" +
+                                                   std::to_string(total_workers) + ".bin",
+                                               header,
+                                               static_cast<std::uint32_t>(logical_row_begin),
+                                               static_cast<std::uint32_t>(local_logical_rows),
+                                               output);
     }
-#endif
 }

@@ -1,0 +1,128 @@
+P1, ONLINE, PID8: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID8: Receiving from other players:0.0983MB, 10.28MB
+P1, ONLINE, PID9: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID9: Receiving from other players:0.0983MB, 10.28MB
+P1, ONLINE, PID10: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID10: Receiving from other players:0.0983MB, 10.28MB
+P1, ONLINE, PID13: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID13: Receiving from other players:0.0983MB, 10.28MB
+P2, ONLINE, PID0: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID0: Receiving from other players:10.28MB, 15.73MB
+P2, ONLINE, PID1: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID1: Receiving from other players:10.28MB, 15.73MB
+P2, ONLINE, PID2: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID2: Receiving from other players:10.28MB, 15.73MB
+P2, ONLINE, PID5: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID5: Receiving from other players:10.28MB, 15.73MB
+P1, ONLINE, PID12: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID12: Receiving from other players:0.0983MB, 10.28MB
+P2, ONLINE, PID7: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID7: Receiving from other players:10.28MB, 15.73MB
+P2, ONLINE, PID4: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID4: Receiving from other players:10.28MB, 15.73MB
+P1, ONLINE, PID15: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID15: Receiving from other players:0.0983MB, 10.28MB
+P2, ONLINE, PID6: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID6: Receiving from other players:10.28MB, 15.73MB
+P1, ONLINE, PID11: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID11: Receiving from other players:0.0983MB, 10.28MB
+P1, ONLINE, PID14: Sending to other players:0MB, 10.28MB
+P1, ONLINE PID14: Receiving from other players:0.0983MB, 10.28MB
+P2, ONLINE, PID3: Sending to other players:10.28MB, 0.0983MB
+P2, ONLINE PID3: Receiving from other players:10.28MB, 15.73MB
+P1, PID9: Initialized circuit, waiting for all parties to connect ...
+P1, PID9: All parties connected sucessfully, starting protocol and timer!
+P1, PID9: Time measured to initialize program: 0.018177s
+P1, PID9: Time measured to perform computation clock: 0.152608s
+P1, PID9: Time measured to perform computation getTime: 0.401931s
+P1, PID9: Time measured to perform computation chrono: 0.401926s
+P2, PID0: Initialized circuit, waiting for all parties to connect ...
+P2, PID0: All parties connected sucessfully, starting protocol and timer!
+P2, PID0: Time measured to initialize program: 0.017710s
+P2, PID0: Time measured to perform computation clock: 0.166933s
+P2, PID0: Time measured to perform computation getTime: 0.402615s
+P2, PID0: Time measured to perform computation chrono: 0.402606s
+P2, PID5: Initialized circuit, waiting for all parties to connect ...
+P2, PID5: All parties connected sucessfully, starting protocol and timer!
+P2, PID5: Time measured to initialize program: 0.022871s
+P2, PID5: Time measured to perform computation clock: 0.171685s
+P2, PID5: Time measured to perform computation getTime: 0.398675s
+P2, PID5: Time measured to perform computation chrono: 0.398671s
+P2, PID7: Initialized circuit, waiting for all parties to connect ...
+P2, PID7: All parties connected sucessfully, starting protocol and timer!
+P2, PID7: Time measured to initialize program: 0.017567s
+P2, PID7: Time measured to perform computation clock: 0.172828s
+P2, PID7: Time measured to perform computation getTime: 0.418072s
+P2, PID7: Time measured to perform computation chrono: 0.418066s
+P2, PID2: Initialized circuit, waiting for all parties to connect ...
+P2, PID2: All parties connected sucessfully, starting protocol and timer!
+P2, PID2: Time measured to initialize program: 0.017609s
+P2, PID2: Time measured to perform computation clock: 0.167724s
+P2, PID2: Time measured to perform computation getTime: 0.424164s
+P2, PID2: Time measured to perform computation chrono: 0.424159s
+P1, PID8: Initialized circuit, waiting for all parties to connect ...
+P1, PID8: All parties connected sucessfully, starting protocol and timer!
+P1, PID8: Time measured to initialize program: 0.022293s
+P1, PID8: Time measured to perform computation clock: 0.157637s
+P1, PID8: Time measured to perform computation getTime: 0.420953s
+P1, PID8: Time measured to perform computation chrono: 0.420949s
+P1, PID12: Initialized circuit, waiting for all parties to connect ...
+P1, PID12: All parties connected sucessfully, starting protocol and timer!
+P1, PID12: Time measured to initialize program: 0.017081s
+P1, PID12: Time measured to perform computation clock: 0.152229s
+P1, PID12: Time measured to perform computation getTime: 0.425552s
+P1, PID12: Time measured to perform computation chrono: 0.425548s
+P2, PID4: Initialized circuit, waiting for all parties to connect ...
+P2, PID4: All parties connected sucessfully, starting protocol and timer!
+P2, PID4: Time measured to initialize program: 0.017558s
+P2, PID4: Time measured to perform computation clock: 0.170726s
+P2, PID4: Time measured to perform computation getTime: 0.427672s
+P2, PID4: Time measured to perform computation chrono: 0.427667s
+P1, PID10: Initialized circuit, waiting for all parties to connect ...
+P1, PID10: All parties connected sucessfully, starting protocol and timer!
+P1, PID10: Time measured to initialize program: 0.022714s
+P1, PID10: Time measured to perform computation clock: 0.153587s
+P1, PID10: Time measured to perform computation getTime: 0.425305s
+P1, PID10: Time measured to perform computation chrono: 0.425301s
+P1, PID13: Initialized circuit, waiting for all parties to connect ...
+P1, PID13: All parties connected sucessfully, starting protocol and timer!
+P1, PID13: Time measured to initialize program: 0.023180s
+P1, PID13: Time measured to perform computation clock: 0.152535s
+P1, PID13: Time measured to perform computation getTime: 0.426323s
+P1, PID13: Time measured to perform computation chrono: 0.426315s
+P2, PID1: Initialized circuit, waiting for all parties to connect ...
+P2, PID1: All parties connected sucessfully, starting protocol and timer!
+P2, PID1: Time measured to initialize program: 0.017750s
+P2, PID1: Time measured to perform computation clock: 0.169390s
+P2, PID1: Time measured to perform computation getTime: 0.432251s
+P2, PID1: Time measured to perform computation chrono: 0.432238s
+P2, PID3: Initialized circuit, waiting for all parties to connect ...
+P2, PID3: All parties connected sucessfully, starting protocol and timer!
+P2, PID3: Time measured to initialize program: 0.017513s
+P2, PID3: Time measured to perform computation clock: 0.168701s
+P2, PID3: Time measured to perform computation getTime: 0.430638s
+P2, PID3: Time measured to perform computation chrono: 0.430633s
+P2, PID6: Initialized circuit, waiting for all parties to connect ...
+P2, PID6: All parties connected sucessfully, starting protocol and timer!
+P2, PID6: Time measured to initialize program: 0.017926s
+P2, PID6: Time measured to perform computation clock: 0.176189s
+P2, PID6: Time measured to perform computation getTime: 0.431485s
+P2, PID6: Time measured to perform computation chrono: 0.431479s
+P1, PID15: Initialized circuit, waiting for all parties to connect ...
+P1, PID15: All parties connected sucessfully, starting protocol and timer!
+P1, PID15: Time measured to initialize program: 0.017074s
+P1, PID15: Time measured to perform computation clock: 0.153734s
+P1, PID15: Time measured to perform computation getTime: 0.432251s
+P1, PID15: Time measured to perform computation chrono: 0.432246s
+P1, PID14: Initialized circuit, waiting for all parties to connect ...
+P1, PID14: All parties connected sucessfully, starting protocol and timer!
+P1, PID14: Time measured to initialize program: 0.018046s
+P1, PID14: Time measured to perform computation clock: 0.153125s
+P1, PID14: Time measured to perform computation getTime: 0.432434s
+P1, PID14: Time measured to perform computation chrono: 0.432430s
+P1, PID11: Initialized circuit, waiting for all parties to connect ...
+P1, PID11: All parties connected sucessfully, starting protocol and timer!
+P1, PID11: Time measured to initialize program: 0.017549s
+P1, PID11: Time measured to perform computation clock: 0.150526s
+P1, PID11: Time measured to perform computation getTime: 0.435959s
+P1, PID11: Time measured to perform computation chrono: 0.435955s

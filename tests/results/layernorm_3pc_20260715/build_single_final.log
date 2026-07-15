@@ -1,0 +1,20 @@
+Precompiled header is up to date.
+make[1]: Entering directory '/home/user/hpmpc'
+make[2]: Entering directory '/home/user/hpmpc'
+make do_compile_player_0,0,run-P0 PARTY_ARGS=0,0,run-P0
+make do_compile_player_1,0,run-P1 PARTY_ARGS=1,0,run-P1
+make do_compile_player_2,0,run-P2 PARTY_ARGS=2,0,run-P2
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+Compiling executable run-P0
+Compiling executable run-P1
+Compiling executable run-P2
+Compilation for executable run-P1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make[2]: Leaving directory '/home/user/hpmpc'
+make[1]: Leaving directory '/home/user/hpmpc'

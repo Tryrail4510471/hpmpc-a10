@@ -1,0 +1,155 @@
+Precompiled header is up to date.
+make[1]: Entering directory '/home/user/hpmpc'
+make[2]: Entering directory '/home/user/hpmpc'
+make do_compile_player_0,0,run-P0 PARTY_ARGS=0,0,run-P0
+make do_compile_player_1,0,run-P1 PARTY_ARGS=1,0,run-P1
+make do_compile_player_2,0,run-P2 PARTY_ARGS=2,0,run-P2
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+Compiling executable run-P0
+Compiling executable run-P1
+Compiling executable run-P2
+In file included from protocol_executer.hpp:42,
+                 from main.cpp:2:
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::multiply_fixed(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL1_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_init<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:296:26:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL1_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL1_init<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:71:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:65:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+   65 |     trunc_exact_in_place(high_lhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:66:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   66 |     trunc_exact_in_place(high_rhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:90:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   90 |     trunc_exact_in_place(cross.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from protocol_executer.hpp:42,
+                 from main.cpp:2:
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::multiply_fixed(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL2_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_init<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:296:26:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL2_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL2_init<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:71:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:65:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+   65 |     trunc_exact_in_place(high_lhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:66:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   66 |     trunc_exact_in_place(high_rhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:90:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   90 |     trunc_exact_in_place(cross.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from protocol_executer.hpp:42,
+                 from main.cpp:2:
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::multiply_fixed(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL0_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_init<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:296:26:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL0_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL0_init<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:71:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:65:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+   65 |     trunc_exact_in_place(high_lhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:66:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   66 |     trunc_exact_in_place(high_rhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:90:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   90 |     trunc_exact_in_place(cross.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::multiply_fixed(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL1_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_Share<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:296:26:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL1_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL1_Share<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:273:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:65:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+   65 |     trunc_exact_in_place(high_lhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:66:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   66 |     trunc_exact_in_place(high_rhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:90:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   90 |     trunc_exact_in_place(cross.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::multiply_fixed(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL2_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_Share<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:296:26:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL2_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL2_Share<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:273:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:65:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+   65 |     trunc_exact_in_place(high_lhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:66:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   66 |     trunc_exact_in_place(high_rhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:90:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   90 |     trunc_exact_in_place(cross.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::multiply_fixed(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL0_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_Share<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:296:26:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL0_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL0_Share<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:273:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:65:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+   65 |     trunc_exact_in_place(high_lhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:66:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   66 |     trunc_exact_in_place(high_rhs.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp:90:25: error: ‘trunc_exact_in_place’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   90 |     trunc_exact_in_place(cross.data(), len, limb_bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::divide_power_of_two(transformer_mpc::AShare<Share>*, int, transformer_mpc::AShare<Share>*, int) [with Share = OECL1_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_init<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:163:31:   required from ‘void transformer_mpc::negative_exp(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL1_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:282:24:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL1_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL1_init<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:71:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:121:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+  121 |     trunc_exact_in_place(out, len, bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::divide_power_of_two(transformer_mpc::AShare<Share>*, int, transformer_mpc::AShare<Share>*, int) [with Share = OECL2_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_init<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:163:31:   required from ‘void transformer_mpc::negative_exp(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL2_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:282:24:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL2_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL2_init<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:71:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:121:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+  121 |     trunc_exact_in_place(out, len, bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::divide_power_of_two(transformer_mpc::AShare<Share>*, int, transformer_mpc::AShare<Share>*, int) [with Share = OECL0_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_init<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:163:31:   required from ‘void transformer_mpc::negative_exp(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL0_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:282:24:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL0_init<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_init<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL0_init<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:71:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:121:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+  121 |     trunc_exact_in_place(out, len, bits);
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::divide_power_of_two(transformer_mpc::AShare<Share>*, int, transformer_mpc::AShare<Share>*, int) [with Share = OECL1_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_Share<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:163:31:   required from ‘void transformer_mpc::negative_exp(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL1_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:282:24:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL1_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL1_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL1_Share<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:273:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:121:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::divide_power_of_two(transformer_mpc::AShare<Share>*, int, transformer_mpc::AShare<Share>*, int) [with Share = OECL2_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_Share<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:163:31:   required from ‘void transformer_mpc::negative_exp(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL2_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:282:24:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL2_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL2_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL2_Share<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:273:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:121:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+programs/functions/transformer/softmax_mpc.hpp: In instantiation of ‘void transformer_mpc::divide_power_of_two(transformer_mpc::AShare<Share>*, int, transformer_mpc::AShare<Share>*, int) [with Share = OECL0_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_Share<__vector(8) long long int> >]’:
+programs/functions/transformer/softmax_mpc.hpp:163:31:   required from ‘void transformer_mpc::negative_exp(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int) [with Share = OECL0_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:282:24:   required from ‘void transformer_mpc::softmax_mpc_forward(transformer_mpc::AShare<Share>*, transformer_mpc::AShare<Share>*, int, int) [with Share = OECL0_Share<__vector(8) long long int>; transformer_mpc::AShare<Share> = Additive_Share<__vector(8) long long int, OECL0_Share<__vector(8) long long int> >]’
+programs/functions/transformer/softmax_mpc.hpp:474:48:   required from ‘void softmax_mpc_program(__m512i*) [with Share = OECL0_Share<__vector(8) long long int>; __m512i = __m512i]’
+protocol_executer.hpp:273:38:   required from here
+programs/functions/transformer/softmax_mpc.hpp:121:25: error: ‘trunc_exact_in_place’ was not declared in this scope
+Linking CUDA executable run-P1
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+Linking CUDA executable run-P2
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+nvlink fatal   : Could not open input file './executables/run-P1-cuda.o'
+Compilation for executable run-P1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+nvlink fatal   : Could not open input file './executables/run-P2-cuda.o'
+Linking CUDA executable run-P0
+Compilation for executable run-P2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+nvlink fatal   : Could not open input file './executables/run-P0-cuda.o'
+Compilation for executable run-P0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make[2]: Leaving directory '/home/user/hpmpc'
+make[1]: Leaving directory '/home/user/hpmpc'

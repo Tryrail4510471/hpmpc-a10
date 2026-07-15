@@ -40,6 +40,8 @@
 #include "programs/tutorials/YourFirstProgram.hpp"
 #elif FUNCTION_IDENTIFIER == 200
 #include "programs/functions/transformer/softmax_mpc.hpp"
+#elif FUNCTION_IDENTIFIER == 201
+#include "programs/functions/transformer/layernorm_mpc.hpp"
 #elif FUNCTION_IDENTIFIER < 400
 #include "programs/NN.hpp"
 #elif FUNCTION_IDENTIFIER >= 500 && FUNCTION_IDENTIFIER <= 534

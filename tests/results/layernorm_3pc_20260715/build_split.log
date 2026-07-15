@@ -1,0 +1,95 @@
+Precompiled header is up to date.
+make[1]: Entering directory '/home/user/hpmpc'
+make[2]: Entering directory '/home/user/hpmpc'
+make do_compile_player_0,0,run-P0--0-1-2 PARTY_ARGS=0,0,run-P0--0-1-2
+make do_compile_player_0,1,run-P0--0-2-1 PARTY_ARGS=0,1,run-P0--0-2-1
+make do_compile_player_1,2,run-P0--1-0-2 PARTY_ARGS=1,2,run-P0--1-0-2
+make do_compile_player_2,3,run-P0--1-2-0 PARTY_ARGS=2,3,run-P0--1-2-0
+make do_compile_player_1,4,run-P0--2-0-1 PARTY_ARGS=1,4,run-P0--2-0-1
+make do_compile_player_2,5,run-P0--2-1-0 PARTY_ARGS=2,5,run-P0--2-1-0
+make do_compile_player_1,0,run-P1--0-1-2 PARTY_ARGS=1,0,run-P1--0-1-2
+make do_compile_player_2,1,run-P1--0-2-1 PARTY_ARGS=2,1,run-P1--0-2-1
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+make[3]: Entering directory '/home/user/hpmpc'
+Compiling executable run-P0--2-0-1
+Compiling executable run-P1--0-1-2
+Compiling executable run-P0--0-1-2
+Compiling executable run-P0--2-1-0
+Compiling executable run-P0--0-2-1
+Compiling executable run-P0--1-0-2
+Compiling executable run-P1--0-2-1
+Compiling executable run-P0--1-2-0
+Compilation for executable run-P0--1-0-2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_0,2,run-P1--1-0-2 PARTY_ARGS=0,2,run-P1--1-0-2
+make[3]: Entering directory '/home/user/hpmpc'
+Compilation for executable run-P0--2-0-1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_0,3,run-P1--1-2-0 PARTY_ARGS=0,3,run-P1--1-2-0
+make[3]: Entering directory '/home/user/hpmpc'
+Compilation for executable run-P0--0-2-1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_2,4,run-P1--2-0-1 PARTY_ARGS=2,4,run-P1--2-0-1
+make[3]: Entering directory '/home/user/hpmpc'
+Compilation for executable run-P0--0-1-2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_1,5,run-P1--2-1-0 PARTY_ARGS=1,5,run-P1--2-1-0
+Compiling executable run-P1--1-0-2
+make[3]: Entering directory '/home/user/hpmpc'
+Compilation for executable run-P1--0-2-1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_2,0,run-P2--0-1-2 PARTY_ARGS=2,0,run-P2--0-1-2
+Compiling executable run-P1--1-2-0
+make[3]: Entering directory '/home/user/hpmpc'
+Compilation for executable run-P1--0-1-2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_1,1,run-P2--0-2-1 PARTY_ARGS=1,1,run-P2--0-2-1
+make[3]: Entering directory '/home/user/hpmpc'
+Compiling executable run-P1--2-0-1
+Compilation for executable run-P0--1-2-0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_2,2,run-P2--1-0-2 PARTY_ARGS=2,2,run-P2--1-0-2
+make[3]: Entering directory '/home/user/hpmpc'
+Compiling executable run-P2--0-1-2
+Compiling executable run-P1--2-1-0
+Compiling executable run-P2--0-2-1
+Compiling executable run-P2--1-0-2
+Compilation for executable run-P0--2-1-0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_1,3,run-P2--1-2-0 PARTY_ARGS=1,3,run-P2--1-2-0
+make[3]: Entering directory '/home/user/hpmpc'
+Compiling executable run-P2--1-2-0
+Compilation for executable run-P1--1-2-0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_0,4,run-P2--2-0-1 PARTY_ARGS=0,4,run-P2--2-0-1
+make[3]: Entering directory '/home/user/hpmpc'
+Compilation for executable run-P2--0-2-1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make do_compile_player_0,5,run-P2--2-1-0 PARTY_ARGS=0,5,run-P2--2-1-0
+make[3]: Entering directory '/home/user/hpmpc'
+Compilation for executable run-P1--1-0-2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compiling executable run-P2--2-0-1
+Compiling executable run-P2--2-1-0
+Compilation for executable run-P1--2-1-0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P2--1-0-2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P2--1-2-0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P2--0-1-2 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P1--2-0-1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P2--2-1-0 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+Compilation for executable run-P2--2-0-1 completed.
+make[3]: Leaving directory '/home/user/hpmpc'
+make[2]: Leaving directory '/home/user/hpmpc'
+make[1]: Leaving directory '/home/user/hpmpc'

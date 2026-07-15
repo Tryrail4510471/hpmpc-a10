@@ -1,0 +1,12 @@
+{
+  "atol": 0.01,
+  "case": "T4",
+  "dominant_min": 0.9951686859130859,
+  "finite": true,
+  "max_abs_error": 0.0009015202522277832,
+  "max_row_sum_error": 0.00010776519775390625,
+  "mean_abs_error": 1.4926945368642919e-05,
+  "nonnegative": true,
+  "other_max": 3.719329833984375e-05,
+  "passed": true
+}

@@ -1,0 +1,10 @@
+{
+  "atol": 0.01,
+  "case": "T2",
+  "finite": true,
+  "max_abs_error": 0.0001233220100402832,
+  "max_row_sum_error": 1.430511474609375e-05,
+  "mean_abs_error": 1.6361555026378483e-05,
+  "nonnegative": true,
+  "passed": true
+}

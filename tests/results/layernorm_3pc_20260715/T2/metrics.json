@@ -1,0 +1,9 @@
+{
+  "atol": 0.01,
+  "case": "T2",
+  "finite": true,
+  "max_abs_error": 0.0016608238220214844,
+  "mean_abs_error": 0.00019578829233068973,
+  "passed": true,
+  "shape": "(4, 128, 768)"
+}

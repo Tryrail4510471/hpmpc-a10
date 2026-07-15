@@ -1,0 +1,8 @@
+P2, ONLINE, PID0: Sending to other players:7.822MB, 0.06554MB
+P2, ONLINE PID0: Receiving from other players:7.822MB, 12.84MB
+P2, PID0: Initialized circuit, waiting for all parties to connect ...
+P2, PID0: All parties connected sucessfully, starting protocol and timer!
+P2, PID0: Time measured to initialize program: 0.006535s
+P2, PID0: Time measured to perform computation clock: 0.071292s
+P2, PID0: Time measured to perform computation getTime: 0.141114s
+P2, PID0: Time measured to perform computation chrono: 0.141112s
