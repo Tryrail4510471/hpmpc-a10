@@ -1,0 +1,27 @@
+P1, ONLINE, PID0: Sending to other players:0MB, 80.07MB
+P1, ONLINE PID0: Receiving from other players:0.7864MB, 79.28MB
+P1, PID0: Initialized circuit, waiting for all parties to connect ...
+P1, PID0: All parties connected sucessfully, starting protocol and timer!
+P1, PID0: Time measured to initialize program: 2.949075s
+P1, PID0: Time measured to perform computation clock: 3.315478s
+P1, PID0: Time measured to perform computation getTime: 3.870833s
+P1, PID0: Time measured to perform computation chrono: 3.870808s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.7864   MB RECEIVED:0    ms LIVE: 0.856
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 463
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:20.99   MB RECEIVED:20.99    ms LIVE: 1660
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:5.603   MB RECEIVED:5.603    ms LIVE: 20.92
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:13.91   MB RECEIVED:13.91    ms LIVE: 1402
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.161
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:30.28   MB RECEIVED:30.28    ms LIVE: 255.1
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:8.503   MB RECEIVED:8.503    ms LIVE: 32.35
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.7864    ms LIVE: 0.246
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.7864    ms LIVE: 0.246
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:8.503   MB RECEIVED:8.503    ms LIVE: 32.35
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.161
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:13.91   MB RECEIVED:13.91    ms LIVE: 1402
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:5.603   MB RECEIVED:5.603    ms LIVE: 20.92
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:30.28   MB RECEIVED:30.28    ms LIVE: 255.1
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:20.99   MB RECEIVED:20.99    ms LIVE: 1660
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 463
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.7864   MB RECEIVED:0    ms LIVE: 0.856
+FFN_E2E case=T3 party=1 stage=full rows=256 workers=1 elapsed_ms=6888 status=0

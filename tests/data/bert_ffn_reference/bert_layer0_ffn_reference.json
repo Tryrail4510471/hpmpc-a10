@@ -1,0 +1,20 @@
+{
+  "model": "google-bert/bert-base-uncased",
+  "encoder_layer": 0,
+  "operation": "intermediate.dense+GELU -> output.dense -> residual -> output.LayerNorm",
+  "seed": 42,
+  "dtype": "float32",
+  "shape": [
+    2,
+    128,
+    768
+  ],
+  "input_file": "bert_layer0_ffn_input_seed42.npy",
+  "output_file": "bert_layer0_ffn_output_seed42.npy",
+  "input_mean": -8.121257269522175e-05,
+  "input_std": 1.0039269924163818,
+  "output_mean": -0.02599847875535488,
+  "output_std": 0.7267041206359863,
+  "output_min": -5.3566203117370605,
+  "output_max": 3.4431586265563965
+}

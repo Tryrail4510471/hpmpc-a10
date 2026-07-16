@@ -1,0 +1,26 @@
+{
+  "case": "T3",
+  "huggingface_gelu_reference": {
+    "atol": 0.1,
+    "finite": true,
+    "max_abs_error": 1.7274543046951294,
+    "mean_abs_error": 0.09122508267984368,
+    "passed": false,
+    "rmse": 0.12030185881722989
+  },
+  "reference_contract_note": "FID=202 uses ReLU; HuggingFace BertIntermediate uses GELU",
+  "relu_reference": {
+    "atol": 0.1,
+    "finite": true,
+    "max_abs_error": 0.052199363708496094,
+    "mean_abs_error": 0.0005763946248441178,
+    "passed": true,
+    "rmse": 0.0014236971337031397
+  },
+  "shape": [
+    2,
+    128,
+    768
+  ],
+  "stage": "full"
+}

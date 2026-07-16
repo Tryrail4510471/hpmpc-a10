@@ -1,0 +1,210 @@
+P1, ONLINE, PID0: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID0: Receiving from other players:0.04915MB, 5.097MB
+P1, ONLINE, PID3: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID3: Receiving from other players:0.04915MB, 5.097MB
+P1, ONLINE, PID4: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID4: Receiving from other players:0.04915MB, 5.097MB
+P1, ONLINE, PID2: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID2: Receiving from other players:0.04915MB, 5.097MB
+P1, ONLINE, PID7: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID7: Receiving from other players:0.04915MB, 5.097MB
+P1, ONLINE, PID1: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID1: Receiving from other players:0.04915MB, 5.097MB
+P1, ONLINE, PID5: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID5: Receiving from other players:0.04915MB, 5.097MB
+P1, ONLINE, PID6: Sending to other players:0MB, 5.146MB
+P1, ONLINE PID6: Receiving from other players:0.04915MB, 5.097MB
+P1, PID3: Initialized circuit, waiting for all parties to connect ...
+P1, PID3: All parties connected sucessfully, starting protocol and timer!
+P1, PID3: Time measured to initialize program: 1.600286s
+P1, PID3: Time measured to perform computation clock: 4.160704s
+P1, PID3: Time measured to perform computation getTime: 6.842466s
+P1, PID3: Time measured to perform computation chrono: 6.842459s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.158
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 627.5
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4400
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.44
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1497
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.009
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 225.1
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 19.7
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 19.7
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.009
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1497
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.44
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 225.1
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4400
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 627.5
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.158
+P1, PID0: Initialized circuit, waiting for all parties to connect ...
+P1, PID0: All parties connected sucessfully, starting protocol and timer!
+P1, PID0: Time measured to initialize program: 1.600340s
+P1, PID0: Time measured to perform computation clock: 4.222985s
+P1, PID0: Time measured to perform computation getTime: 6.909132s
+P1, PID0: Time measured to perform computation chrono: 6.909120s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.109
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 629.6
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4440
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.664
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1515
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.008
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 237.2
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 20.32
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 20.32
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.008
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1515
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.664
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 237.2
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4440
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 629.6
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.109
+P1, PID5: Initialized circuit, waiting for all parties to connect ...
+P1, PID5: All parties connected sucessfully, starting protocol and timer!
+P1, PID5: Time measured to initialize program: 1.600170s
+P1, PID5: Time measured to perform computation clock: 4.159244s
+P1, PID5: Time measured to perform computation getTime: 6.930513s
+P1, PID5: Time measured to perform computation chrono: 6.930507s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.062
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 623.6
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4445
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.357
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1525
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.011
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 239.3
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 21.03
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 21.03
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.011
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1525
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.357
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 239.3
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4445
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 623.6
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.062
+P1, PID1: Initialized circuit, waiting for all parties to connect ...
+P1, PID1: All parties connected sucessfully, starting protocol and timer!
+P1, PID1: Time measured to initialize program: 1.600354s
+P1, PID1: Time measured to perform computation clock: 4.164986s
+P1, PID1: Time measured to perform computation getTime: 6.971424s
+P1, PID1: Time measured to perform computation chrono: 6.971418s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.262
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 632.7
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4488
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.173
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1515
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.008
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 242.1
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 21.82
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.013
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.013
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 21.82
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.008
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1515
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.173
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 242.1
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4488
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 632.7
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.262
+P1, PID7: Initialized circuit, waiting for all parties to connect ...
+P1, PID7: All parties connected sucessfully, starting protocol and timer!
+P1, PID7: Time measured to initialize program: 1.599952s
+P1, PID7: Time measured to perform computation clock: 4.284331s
+P1, PID7: Time measured to perform computation getTime: 7.084687s
+P1, PID7: Time measured to perform computation chrono: 7.084664s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.084
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 631.5
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4528
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.568
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1614
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.007
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 240.7
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 19.17
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.013
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.013
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 19.17
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.007
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1614
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.568
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 240.7
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4528
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 631.5
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.084
+P1, PID4: Initialized circuit, waiting for all parties to connect ...
+P1, PID4: All parties connected sucessfully, starting protocol and timer!
+P1, PID4: Time measured to initialize program: 1.605531s
+P1, PID4: Time measured to perform computation clock: 4.283931s
+P1, PID4: Time measured to perform computation getTime: 7.100420s
+P1, PID4: Time measured to perform computation chrono: 7.100413s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.09
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 630.9
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4524
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.283
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1624
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.008
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 228.6
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 18.59
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.012
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.012
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 18.59
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.008
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1624
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.283
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 228.6
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4524
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 630.9
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.09
+P1, PID2: Initialized circuit, waiting for all parties to connect ...
+P1, PID2: All parties connected sucessfully, starting protocol and timer!
+P1, PID2: Time measured to initialize program: 1.600332s
+P1, PID2: Time measured to perform computation clock: 4.304715s
+P1, PID2: Time measured to perform computation getTime: 7.117300s
+P1, PID2: Time measured to perform computation chrono: 7.117294s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.081
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 627.7
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4534
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.1
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1637
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.007
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 231
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 33.45
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.012
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.012
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 33.45
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.007
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1637
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.1
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 231
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4534
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 627.7
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.081
+P1, PID6: Initialized circuit, waiting for all parties to connect ...
+P1, PID6: All parties connected sucessfully, starting protocol and timer!
+P1, PID6: Time measured to initialize program: 1.605019s
+P1, PID6: Time measured to perform computation clock: 4.260895s
+P1, PID6: Time measured to perform computation getTime: 7.106439s
+P1, PID6: Time measured to perform computation chrono: 7.106432s
+P1: --NN_STATS (Individual)-- ID: 0 InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.166
+P1: --NN_STATS (Individual)-- ID: 1 ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 624.7
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4523
+P1: --NN_STATS (Individual)-- ID: 3 ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.353
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1638
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.009
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 223.7
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 19.05
+P1: --NN_STATS (Individual)-- ID: 8 OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- OutputReveal    MB SENT:0   MB RECEIVED:0.04915    ms LIVE: 0.015
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0.5315   MB RECEIVED:0.5315    ms LIVE: 19.05
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0.009
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:0.8694   MB RECEIVED:0.8694    ms LIVE: 1638
+P1: --NN_STATS (Aggregated)-- ReLU    MB SENT:0.3502   MB RECEIVED:0.3502    ms LIVE: 2.353
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:2.034   MB RECEIVED:2.034    ms LIVE: 223.7
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:1.312   MB RECEIVED:1.312    ms LIVE: 4523
+P1: --NN_STATS (Aggregated)-- ModelShare    MB SENT:0   MB RECEIVED:0    ms LIVE: 624.7
+P1: --NN_STATS (Aggregated)-- InputShare    MB SENT:0.04915   MB RECEIVED:0    ms LIVE: 0.166
+FFN_E2E case=T4 party=1 stage=full rows=128 workers=8 elapsed_ms=8903 status=0
+FFN_NIC party=1 iface=eth0 rx_bytes=46074774 tx_bytes=44847450 elapsed_ms=8903

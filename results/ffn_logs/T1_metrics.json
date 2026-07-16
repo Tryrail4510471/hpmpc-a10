@@ -1,0 +1,17 @@
+{
+  "case": "T1",
+  "relu_reference": {
+    "atol": 0.1,
+    "finite": true,
+    "max_abs_error": 0.006077766418457031,
+    "mean_abs_error": 0.00038108517522535595,
+    "passed": true,
+    "rmse": 0.0005086167668695346
+  },
+  "shape": [
+    1,
+    4,
+    768
+  ],
+  "stage": "core"
+}

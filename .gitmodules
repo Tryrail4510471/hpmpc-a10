@@ -1,7 +1,8 @@
 [submodule "nn/Pygeon"]
 	path = nn/Pygeon
-    url = https://github.com/chart21/pygeon.git
+    url = https://github.com/Tryrail4510471/hpmpc-a10.git
+	branch = vendor/pygeon-bert-ffn
 [submodule "nn/PIGEON"]
 	path = nn/PIGEON
-    url = https://github.com/chart21/flexNN.git
-	branch = hpmpc
+    url = https://github.com/Tryrail4510471/hpmpc-a10.git
+	branch = vendor/flexnn-bert-ffn

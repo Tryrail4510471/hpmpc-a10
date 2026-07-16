@@ -159,14 +159,15 @@ void inverse_sqrt_seed(const AShare<Share>* z, AShare<Share>* seed, int rows)
 {
     using A = AShare<Share>;
     constexpr std::array<FLOATTYPE, kLutEntries - 1> thresholds = {
-        FLOATTYPE(0.25), FLOATTYPE(0.5), FLOATTYPE(0.75), FLOATTYPE(1.0),
-        FLOATTYPE(1.5),  FLOATTYPE(2.0), FLOATTYPE(4.0)};
+        FLOATTYPE(0.5), FLOATTYPE(0.75), FLOATTYPE(1.0), FLOATTYPE(1.5),
+        FLOATTYPE(4.0), FLOATTYPE(10.0), FLOATTYPE(18.0)};
     // Seeds are 1/sqrt(bucket midpoint), rounded to Q12.20. The intervals are
-    // deliberately narrow around variance 1, the operating range of BERT.
+    // cover both normalized activations (variance around one) and BERT
+    // post-FFN residuals, whose online variance is commonly in [2, 18].
     constexpr std::array<FLOATTYPE, kLutEntries> seeds = {
-        FLOATTYPE(2.000000000), FLOATTYPE(1.632993162), FLOATTYPE(1.264911064),
-        FLOATTYPE(1.069044968), FLOATTYPE(0.894427191), FLOATTYPE(0.755928946),
-        FLOATTYPE(0.577350269), FLOATTYPE(0.353553391)};
+        FLOATTYPE(2.000000000), FLOATTYPE(1.264911064), FLOATTYPE(1.069044968),
+        FLOATTYPE(0.894427191), FLOATTYPE(0.632455532), FLOATTYPE(0.377964473),
+        FLOATTYPE(0.267261242), FLOATTYPE(0.223606798)};
 
     std::vector<A> comparisons((kLutEntries - 1) * rows);
     std::vector<A> less((kLutEntries - 1) * rows);
@@ -241,6 +242,11 @@ void layernorm_mpc_forward(const AShare<Share>* input,
 
     const int elements = packed_rows * hidden_size;
     const UINT_TYPE reciprocal_hidden = fixed(FLOATTYPE(1) / hidden_size);
+    // Q12.20 can represent values only in [-2048, 2048). A post-FFN outlier
+    // slightly above |45.25| would make x^2 wrap that ring. LayerNorm is scale
+    // invariant, so compute statistics on x/2 and scale epsilon by 1/4.
+    std::vector<A> working(input, input + elements);
+    trunc_exact_in_place(working.data(), elements, 1);
     std::vector<A> mean(packed_rows);
     if (hidden_size == kHiddenSize)
     {
@@ -254,7 +260,8 @@ void layernorm_mpc_forward(const AShare<Share>* input,
             for (int group = 0; group < groups; ++group)
             {
                 const int base = row * hidden_size + group * 3;
-                triplet_sums[row * groups + group] = input[base] + input[base + 1] + input[base + 2];
+                triplet_sums[row * groups + group] =
+                    working[base] + working[base + 1] + working[base + 2];
             }
         multiply_public_fixed<Share>(triplet_sums.data(), fixed(FLOATTYPE(1) / FLOATTYPE(3)),
                                      triplet_means.data(), packed_rows * groups);
@@ -271,12 +278,12 @@ void layernorm_mpc_forward(const AShare<Share>* input,
         std::vector<A> sums(packed_rows, A(UINT_TYPE(0)));
         for (int row = 0; row < packed_rows; ++row)
             for (int col = 0; col < hidden_size; ++col)
-                sums[row] = sums[row] + input[row * hidden_size + col];
+                sums[row] = sums[row] + working[row * hidden_size + col];
         multiply_public_fixed<Share>(sums.data(), reciprocal_hidden, mean.data(), packed_rows);
     }
 
     std::vector<A> x2(elements);
-    multiply_fixed<Share>(input, input, x2.data(), elements);
+    multiply_fixed<Share>(working.data(), working.data(), x2.data(), elements);
     // Scale square terms before reduction. For variance around 3, summing 768
     // Q12.20 squares first can exceed the signed 32-bit ring range.
     std::vector<A> scaled_x2(elements);
@@ -303,7 +310,7 @@ void layernorm_mpc_forward(const AShare<Share>* input,
     multiply_bit<Share>(nonnegative_bit.data(), raw_variance.data(), nonnegative_variance.data(), packed_rows);
     std::vector<A> variance_eps(packed_rows);
     for (int row = 0; row < packed_rows; ++row)
-        variance_eps[row] = nonnegative_variance[row] + A(fixed(kEpsilon));
+        variance_eps[row] = nonnegative_variance[row] + A(fixed(kEpsilon / FLOATTYPE(4)));
 
     std::vector<A> reciprocal_sqrt(packed_rows);
     inverse_sqrt<Share>(variance_eps.data(), reciprocal_sqrt.data(), packed_rows);
@@ -314,7 +321,7 @@ void layernorm_mpc_forward(const AShare<Share>* input,
         for (int col = 0; col < hidden_size; ++col)
         {
             const int index = row * hidden_size + col;
-            centered[index] = input[index] - mean[row];
+            centered[index] = working[index] - mean[row];
             broadcast_r[index] = reciprocal_sqrt[row];
         }
     std::vector<A> normalized(elements);
