@@ -1,0 +1,116 @@
+\section{Method}
+\label{sec:method}
+
+\subsection{System and Threat Model}
+The deployment contains three non-collocated compute parties $P_0$, $P_1$, and $P_2$. Model parameters and input tensors are secret-shared before evaluation, and the parties execute the same compiled computation graph. The current target is a semi-honest 3PC deployment using Trio through hpmpc. The output recipient and reconstruction policy are configurable and must be fixed for each experiment. Network encryption, malicious behavior, side channels, denial of service, and leakage through intentionally released model outputs are outside the current protocol claim.
+
+The software stack has three layers. hpmpc provides arithmetic and Boolean secret shares, communication, preprocessing, fixed-point primitives, and protocol selection. PIGEON/FlexNN provides neural-network architecture construction and model execution. Transformer functions are registered through a new function identifier and call the same share types as existing PIGEON layers. This arrangement avoids a parallel runtime and makes the new operators available to the framework's process vectorization, split-role execution, and CUDA general-matrix-multiplication path.
+
+\subsection{Accelerator-Aware Execution Architecture}
+Figure~\ref{fig:architecture_placeholder} will summarize the final data path. The architecture divides each Transformer block into four operator classes:
+
+\begin{enumerate}
+    \item \emph{linear projections and FFN products}, executed through the CUDA matrix-multiplication path;
+    \item \emph{local affine operations and reductions}, evaluated directly over arithmetic shares without communication when algebraically possible;
+    \item \emph{secure products and truncations}, evaluated in the arithmetic path with batched communication; and
+    \item \emph{comparisons and bit-dependent selection}, evaluated through the Boolean path and converted back to arithmetic shares.
+\end{enumerate}
+
+\begin{figure}[t]
+    \centering
+    \fbox{\parbox{0.92\columnwidth}{\centering
+    \vspace{7mm}
+    \todo{Replace with the final system diagram: secret sharing $\rightarrow$ GPU linear layers $\rightarrow$ mixed-protocol nonlinear layers $\rightarrow$ reconstruction.}
+    \vspace{7mm}}}
+    \caption{Planned overview of the GPU-accelerated three-party Transformer inference pipeline.}
+    \label{fig:architecture_placeholder}
+\end{figure}
+
+The compilation target uses 32-bit ring elements with 20 fractional bits. hpmpc packs multiple ring elements into a wider data type and can execute several independent processes. Tensor dimensions are therefore separated from packed execution lanes: a logical Softmax row always contains $L$ attention scores, while batching and vectorization determine how many rows are evaluated concurrently. This distinction prevents process layout from changing the mathematical operator.
+
+\subsection{Secure Attention Softmax}
+\label{sec:softmax}
+The implemented Softmax accepts a tensor with logical shape $[B,H,L_q,L_k]$ and normalizes along $L_k$. The current BERT-base test shape is $[2,12,128,128]$, and the implementation supports $L_k\leq128$. Algorithm~\ref{alg:softmax} gives the protocol structure.
+
+\begin{algorithm}[t]
+\caption{Secure row-wise attention Softmax}
+\label{alg:softmax}
+\begin{algorithmic}[1]
+\REQUIRE Arithmetic shares $\langle x_1,\ldots,x_L\rangle^A$
+\ENSURE Arithmetic shares $\langle p_1,\ldots,p_L\rangle^A$
+\STATE $\langle m\rangle^A \leftarrow \operatorname{TreeMax}(\langle x\rangle^A)$
+\STATE $\langle \delta_i\rangle^A \leftarrow \langle x_i-m\rangle^A$
+\STATE $\langle e_i\rangle^A \leftarrow \operatorname{NegExp}(\langle\delta_i\rangle^A)$
+\STATE $\langle s\rangle^A \leftarrow \sum_i\langle e_i\rangle^A$
+\STATE $\langle r\rangle^A \leftarrow \operatorname{Reciprocal}(\langle s\rangle^A)$
+\STATE $\langle p_i\rangle^A \leftarrow \operatorname{Trunc}(\langle e_i\rangle^A\langle r\rangle^A)$
+\RETURN $\langle p\rangle^A$
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Maximum subtraction}
+For each row, the protocol evaluates a balanced comparison tree. With $L=128$, the tree has seven levels. Each pairwise maximum uses the framework's signed maximum primitive, whose comparison obtains a sign bit through the Boolean path and returns the selected value as an arithmetic share. Maximum subtraction produces $\delta_i=x_i-m\leq0$ and avoids overflow in exponentiation. It does not guarantee $\delta_i\geq-\ln 2$, so a separate range-reduction step is required.
+
+\subsubsection{Range-reduced exponential}
+The protocol masks values below $-16\ln 2$ to zero. For active values, it clips the argument to this lower bound and sets $y=\delta/16$, giving $y\in[-\ln 2,0]$. It then evaluates the cubic polynomial
+\begin{equation}
+    T_3(y)=1+y+\frac{y^2}{2}+\frac{y^3}{6}
+    \label{eq:taylor}
+\end{equation}
+over arithmetic shares and reconstructs the reduced exponential as
+\begin{equation}
+    \widehat{\exp}(\delta)=\left(T_3(\delta/16)\right)^{16},
+    \label{eq:range-reduction}
+\end{equation}
+using four secure squarings. Every fixed-point product is followed by the configured exact truncation. A final arithmetic mask forces the clipped tail to zero, rather than returning the exponential of the clipping threshold.
+
+The 32-bit ring creates an additional implementation constraint: multiplying two Q12.20 encodings can require more than 32 intermediate bits even when the truncated result is representable. The implementation decomposes each operand into 10-bit low and high limbs. It securely computes the high--high and cross products, truncates the cross term by 10 bits, and combines the terms. This preserves the relevant Q12.20 product without relying on an unavailable wider ring intermediate.
+
+\subsubsection{Reduction and reciprocal}
+Because addition is local over arithmetic shares, each row sum
+\begin{equation}
+    s=\sum_{i=1}^{L} e_i
+    \label{eq:row-sum}
+\end{equation}
+requires no additional communication. For $L\leq128$, the reciprocal routine securely identifies the highest-bit bucket $k$ for $s\in[2^k,2^{k+1})$. It forms the piecewise linear seed
+\begin{equation}
+    r_0=\frac{48}{17}2^{-(k+1)}
+    -\frac{32}{17}s\,2^{-2(k+1)}
+    \label{eq:reciprocal-seed}
+\end{equation}
+and performs two Newton--Raphson iterations,
+\begin{equation}
+    r_{t+1}=r_t(2-sr_t).
+    \label{eq:newton}
+\end{equation}
+The reciprocal is broadcast within the secret-shared row and multiplied by each approximate exponential. No secret value is opened during the operator.
+
+\subsection{LayerNorm Protocol Contract}
+\label{sec:layernorm}
+For a hidden vector $x\in\mathbb{R}^{d}$, LayerNorm computes
+\begin{align}
+    \mu &= \frac{1}{d}\sum_{i=1}^{d}x_i, \\
+    v &= \frac{1}{d}\sum_{i=1}^{d}(x_i-\mu)^2, \\
+    y_i &= \gamma_i(x_i-\mu)(v+\epsilon)^{-1/2}+\beta_i.
+    \label{eq:layernorm}
+\end{align}
+Unlike BatchNorm, the statistics are computed per token over the hidden dimension during inference; they cannot be replaced by public running means and variances. The integration contract therefore accepts arithmetic shares of $[B,L,d]$, computes the mean and variance through local reductions and secure multiplications, evaluates a secure reciprocal square root, and applies private or public affine parameters according to the model-owner setting.
+
+The reciprocal-square-root approximation and its normalization interval remain under implementation. The final protocol will report its polynomial or iterative approximation, truncation points, worst-case numerical error over the tested activation range, and communication rounds. Until those details are fixed and validated, this section is a design contract rather than a completed protocol claim.
+
+\subsection{FFN and Residual-Normalization Pipeline}
+\label{sec:ffn}
+A BERT FFN transforms each token independently:
+\begin{equation}
+    \operatorname{FFN}(x)=W_2\,\operatorname{GELU}(W_1x+b_1)+b_2.
+    \label{eq:ffn}
+\end{equation}
+The two dense products are mapped to CUDA GEMM. Bias addition and residual addition remain in arithmetic sharing. GELU requires an MPC-friendly approximation whose interval must be calibrated against secret activation traces or a conservative public bound. The planned fused pipeline consumes the residual input and FFN output directly, performs the residual addition, and invokes the LayerNorm contract without reconstructing an intermediate tensor.
+
+Fusion here denotes an execution-interface optimization, not a change to BERT semantics. The implementation must preserve the reference order of bias, activation, second projection, residual addition, and normalization. Its benefit will be assessed through tensor-lifetime measurements, host and device memory, communication volume, and end-to-end latency. No fusion speedup is claimed in the present draft.
+
+\subsection{Framework Integration}
+The initial Transformer entry point is assigned \path{FUNCTION_IDENTIFIER=200}. The implementation resides in \path{programs/functions/transformer/softmax_mpc.hpp} and is selected in \path{protocol_executer.hpp} through the framework's preprocessor dispatch. Future identifiers 201 and 202 are reserved for LayerNorm and the FFN-plus-LayerNorm pipeline, respectively. A complete PIGEON model integration additionally requires a Transformer architecture definition in \path{nn/PIGEON/architectures/}, layer construction in the FlexNN-facing interface, and model/data serialization compatible with Pygeon.
+
+\subsection{Validation Methodology}
+Operator validation compares reconstructed MPC outputs with a PyTorch reference generated from identical seeded tensors. Softmax tests include zero inputs, constant rows, random bounded scores, and rows containing a dominant or strongly negative element. The primary numerical metrics are maximum absolute error, mean absolute error, row-sum error, and the presence of non-finite outputs. End-to-end validation will fix model parameters, samples, and software revision across all parties and will record the maximum completion time among parties, communication, GPU utilization, memory, and model-task accuracy. This separation between operator correctness and system performance prevents throughput results from masking a numerical regression.

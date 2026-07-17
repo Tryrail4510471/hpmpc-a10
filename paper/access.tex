@@ -1,0 +1,64 @@
+\documentclass{ieeeaccess}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{xcolor}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcommand{\system}{our framework}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\begin{document}
+
+\history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
+\doi{10.1109/ACCESS.XXXX.XXXXXXX}
+
+\title{Efficient Private Transformer Inference With GPU-Accelerated Secure Three-Party Computation}
+
+\author{\uppercase{Shusen Lin}\authorrefmark{1}}
+\address[1]{\todo{Yancheng Teacher college, Nanjing Tech University, Yancheng, China(email: bzsn20020212@njtech.edu.cn)Department, Institution, City, Country (e-mail: author@example.com)}}
+\tfootnote{\todo{Funding statement.}}
+\markboth{Author \headeretal: Efficient Private Transformer Inference With GPU-Accelerated Secure Three-Party Computation}
+{Author \headeretal: Efficient Private Transformer Inference With GPU-Accelerated Secure Three-Party Computation}
+\corresp{Corresponding author: \todo{Name and e-mail address}.}
+
+\begin{abstract}
+Transformer inference over sensitive inputs and proprietary model parameters requires cryptographic protection without sacrificing the model structure that provides its utility. Secure multiparty computation offers a natural protection boundary, but Transformer workloads combine communication-intensive nonlinear functions with large linear layers whose execution characteristics differ sharply from those of convolutional networks. This article develops a GPU-accelerated secure three-party computation design for private Transformer inference on top of the hpmpc and PIGEON software stack. The design assigns dense matrix operations to a CUDA path and expresses nonlinear layers through mixed arithmetic and Boolean secret-sharing primitives. Its implemented attention Softmax protocol uses a secure row-wise maximum, range-reduced polynomial exponentiation, local reduction over arithmetic shares, and a lookup-seeded Newton--Raphson reciprocal. We further specify integration contracts for secure LayerNorm and a feed-forward-network-plus-LayerNorm pipeline so that the remaining Transformer operators can share the same fixed-point representation and execution interface. A controlled validation plan separates operator-level numerical error from end-to-end system performance and records latency, communication, accelerator utilization, memory consumption, and model quality under identical inputs and parameters. \todo{Insert the final quantitative results only after controlled three-party experiments.}
+\end{abstract}
+
+\begin{keywords}
+GPU acceleration, privacy-preserving machine learning, secure multiparty computation, secure three-party computation, Transformer inference.
+\end{keywords}
+
+\titlepgskip=-21pt
+\maketitle
+
+\input{introduction}
+\input{background_motivation}
+\input{related_work}
+\input{method}
+
+\section{Experimental Evaluation}
+\label{sec:evaluation}
+\todo{Insert the controlled BERT-base experiments, accuracy analysis, ablations, and resource measurements. No result is claimed in the present data-independent draft.}
+
+\section{Conclusion}
+\label{sec:conclusion}
+This article targets the systems gap between cryptographically secure Transformer execution and efficient use of modern GPU clusters. The proposed architecture combines mixed-protocol three-party computation with GPU-resident linear algebra and introduces an attention-oriented secure Softmax design. The current implementation establishes the Softmax path and the framework integration point. Completing and evaluating the LayerNorm and FFN pipelines, followed by controlled end-to-end BERT-base measurements, remains necessary before drawing performance or accuracy conclusions.
+\EOD
+
+\section*{Acknowledgment}
+\todo{Add acknowledgments and the IEEE-required disclosure describing any generative-AI assistance used for manuscript drafting.}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

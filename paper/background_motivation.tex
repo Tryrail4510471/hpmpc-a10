@@ -1,0 +1,37 @@
+\section{Background and Motivation}
+\label{sec:background}
+
+\subsection{Three-Party Secure Computation}
+Let $P_0$, $P_1$, and $P_2$ denote three computing parties. A value $x$ is represented by shares rather than by its plaintext value. We write $\langle x\rangle^{A}$ for an arithmetic sharing over the ring $\mathbb{Z}_{2^k}$ and $\langle x\rangle^{B}$ for a Boolean sharing. Arithmetic sharing makes addition and public-scalar multiplication local, whereas multiplication of two secret values requires a protocol interaction. Boolean sharing is useful for bit-level operations, comparisons, and sign extraction. A mixed-protocol execution converts between representations only when the next operator benefits from a different circuit domain \cite{mohassel2018aby3}.
+
+Our implementation uses hpmpc's Trio configuration, identified by \texttt{PROTOCOL=5}. The framework documents Trio as a semi-honest three-party protocol with preprocessing support and the complete primitive set needed by PIGEON. We assume that parties follow the protocol but may attempt to infer additional information from their local views. The manuscript will state the precise corruption threshold and output-release policy after the final deployment configuration is frozen; no malicious-security claim is made.
+
+Neural-network values are encoded in the ring by fixed-point scaling. For a real number $x$, the integer encoding is
+\begin{equation}
+    \widetilde{x}=\left\lfloor x\,2^f\right\rceil \bmod 2^k,
+    \label{eq:fixed-point}
+\end{equation}
+where $k=32$ and $f=20$ in the Transformer path. A product of two encoded values carries $2f$ fractional bits and must therefore be truncated. Truncation choice matters for both numerical error and MPC cost, and prior work has shown that fixed-point truncation should be treated as a first-class systems decision rather than an implementation detail \cite{harth2025truncation}. The current Softmax path uses exact truncation (\texttt{TRUNC\_APPROACH=2}) after secure fixed-point products.
+
+\subsection{Transformer Inference}
+For a sequence representation $X\in\mathbb{R}^{L\times d}$, one attention head forms queries, keys, and values by learned projections and computes
+\begin{equation}
+    \operatorname{Attention}(Q,K,V)
+    =\operatorname{Softmax}\!\left(\frac{QK^{\mathsf T}}{\sqrt{d_k}}+M\right)V,
+    \label{eq:attention}
+\end{equation}
+where $M$ is an optional attention mask. Multi-head attention evaluates this expression for $H$ heads, concatenates their outputs, and applies an output projection \cite{vaswani2017attention}. BERT-base uses repeated encoder blocks containing multi-head attention, residual connections, LayerNorm, and a two-layer FFN \cite{devlin2019bert}.
+
+The linear projections and FFN matrix multiplications dominate the public operation count, but operation count alone is a poor predictor of secure latency. Additions over arithmetic shares are local; secure multiplication introduces communication; comparisons typically require Boolean-domain work; and transcendental functions must be replaced by secure approximations. Consequently, a comparatively small nonlinear layer can introduce many synchronized rounds and interrupt otherwise efficient GPU execution.
+
+\subsection{Why Attention Softmax Is a Systems Bottleneck}
+For scores $x_1,\ldots,x_L$, Softmax returns
+\begin{equation}
+    p_i=\frac{\exp(x_i-m)}{\sum_{j=1}^{L}\exp(x_j-m)},
+    \qquad m=\max_j x_j.
+    \label{eq:softmax}
+\end{equation}
+Subtracting the row maximum is numerically necessary but does not constrain every centered score to $[-\ln 2,0]$; it guarantees only $x_i-m\leq0$. A secure implementation must therefore combine maximum evaluation, tail handling, exponent approximation, summation, and division. For $L=128$, each BERT-base layer evaluates this normalization for every query position and every attention head. Reusing a small-class CNN output routine is not sufficient: an argmax-oriented classification head neither returns normalized attention probabilities nor addresses the larger row dimension.
+
+\subsection{Motivation for GPU--Protocol Co-Design}
+CryptGPU and Piranha show that secret-sharing workloads can benefit from GPU execution when protocol operations and memory movement are organized around accelerators \cite{tan2021cryptgpu,watson2022piranha}. PIGEON, meanwhile, provides a PyTorch-like architecture interface and can use hpmpc protocols together with CUDA-backed general matrix multiplication \cite{harth2025pigeon}. This combination motivates a heterogeneous design: keep large regular products on the GPU path, retain communication-efficient local reductions in arithmetic sharing, and invoke the Boolean path only for comparisons and bit-dependent selection. The objective is not merely to offload more code to the GPU, but to minimize domain conversions, communication rounds, and avoidable tensor materialization across an entire Transformer block.
