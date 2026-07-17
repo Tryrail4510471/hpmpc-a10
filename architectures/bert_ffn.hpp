@@ -7,8 +7,8 @@
 
 #include "../../../datatypes/Additive_Share.hpp"
 #include "../../../programs/functions/GEMM.hpp"
-#include "../../../programs/functions/Relu.hpp"
 #include "../../../programs/functions/exact_truncation.hpp"
+#include "../../../programs/functions/transformer/gelu_mpc.hpp"
 #include "../../../programs/functions/transformer/layernorm_mpc.hpp"
 
 #include <algorithm>
@@ -211,11 +211,9 @@ class BertFFNBlock
                     intermediate[static_cast<std::size_t>(row) * kIntermediate + col] + b1[col];
         stop_layer_stats(2);
 
-        // TODO(bert): replace this comparison-based ReLU with the MPC GELU
-        // approximation used by the final BERT implementation.
-        start_layer_stats("ReLU", 3);
+        start_layer_stats("GELU", 3);
         std::vector<A> activated(intermediate.size());
-        RELU(intermediate.data(), intermediate.data() + intermediate.size(), activated.data());
+        gelu_mpc::GELU<Share>(intermediate.data(), intermediate.data() + intermediate.size(), activated.data());
         stop_layer_stats(3);
 
         start_layer_stats("Linear3072x768", 4);
