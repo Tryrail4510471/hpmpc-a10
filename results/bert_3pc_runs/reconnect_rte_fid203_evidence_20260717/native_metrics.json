@@ -1,0 +1,33 @@
+{
+  "cluster_peak_gpu_memory_mb": 251.0,
+  "complete": true,
+  "controller_wall_ms": 83947,
+  "end_to_end_latency_ms": 77922.776,
+  "per_party": {
+    "p0": {
+      "gpu_mean_utilization_percent": 5.950617283950617,
+      "gpu_peak_memory_mb": 251.0,
+      "gpu_peak_utilization_percent": 63.0,
+      "gpu_samples": 81,
+      "latency_ms": 77922.776,
+      "send_mb": 18570.000128
+    },
+    "p1": {
+      "gpu_mean_utilization_percent": 6.1625,
+      "gpu_peak_memory_mb": 251.0,
+      "gpu_peak_utilization_percent": 63.0,
+      "gpu_samples": 80,
+      "latency_ms": 77921.904,
+      "send_mb": 5154.0
+    },
+    "p2": {
+      "gpu_mean_utilization_percent": 3.949367088607595,
+      "gpu_peak_memory_mb": 249.0,
+      "gpu_peak_utilization_percent": 64.0,
+      "gpu_samples": 79,
+      "latency_ms": 77922.23199999999,
+      "send_mb": 5154.000128
+    }
+  },
+  "total_send_mb": 28878.000256
+}

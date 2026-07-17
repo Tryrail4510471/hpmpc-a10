@@ -1,0 +1,141 @@
+{
+  "reference": "p0_patch/tests/data/bert_base_reference/mrpc/logits.npy",
+  "mpc_output": "p0_patch/tests/data/bert_base_reference/mrpc/mpc_logits_adaptive3_q20.bin",
+  "shape": [
+    1,
+    2
+  ],
+  "reference_logits": [
+    [
+      -2.325064182281494,
+      2.6336236000061035
+    ]
+  ],
+  "mpc_logits": [
+    [
+      -2.315715789794922,
+      2.622570037841797
+    ]
+  ],
+  "max_abs_error": 0.01105356216430664,
+  "mean_abs_error": 0.010200977325439453,
+  "finite": true,
+  "reference_prediction": [
+    1
+  ],
+  "mpc_prediction": [
+    1
+  ],
+  "prediction_match": true,
+  "tolerance": 0.5,
+  "boundary_metrics": [
+    {
+      "boundary": 0,
+      "max_abs_error": 0.007689952850341797,
+      "mean_abs_error": 0.00042781994610642293,
+      "valid_token_max_abs_error": 0.007689952850341797,
+      "cls_max_abs_error": 0.0018177032470703125,
+      "finite": true
+    },
+    {
+      "boundary": 1,
+      "max_abs_error": 0.004767119884490967,
+      "mean_abs_error": 0.0004893045352335167,
+      "valid_token_max_abs_error": 0.004767119884490967,
+      "cls_max_abs_error": 0.0017020106315612793,
+      "finite": true
+    },
+    {
+      "boundary": 2,
+      "max_abs_error": 0.008912652730941772,
+      "mean_abs_error": 0.0010405638407739541,
+      "valid_token_max_abs_error": 0.008912652730941772,
+      "cls_max_abs_error": 0.002840697765350342,
+      "finite": true
+    },
+    {
+      "boundary": 3,
+      "max_abs_error": 0.4296889007091522,
+      "mean_abs_error": 0.004674744546227794,
+      "valid_token_max_abs_error": 0.00942685455083847,
+      "cls_max_abs_error": 0.0032219216227531433,
+      "finite": true
+    },
+    {
+      "boundary": 4,
+      "max_abs_error": 0.4345379024744034,
+      "mean_abs_error": 0.005944952871822247,
+      "valid_token_max_abs_error": 0.009889751672744751,
+      "cls_max_abs_error": 0.005132555961608887,
+      "finite": true
+    },
+    {
+      "boundary": 5,
+      "max_abs_error": 0.43207763135433197,
+      "mean_abs_error": 0.006773746656333737,
+      "valid_token_max_abs_error": 0.012151747941970825,
+      "cls_max_abs_error": 0.006208091974258423,
+      "finite": true
+    },
+    {
+      "boundary": 6,
+      "max_abs_error": 0.6535024642944336,
+      "mean_abs_error": 0.00799054554374839,
+      "valid_token_max_abs_error": 0.014092445373535156,
+      "cls_max_abs_error": 0.01322174072265625,
+      "finite": true
+    },
+    {
+      "boundary": 7,
+      "max_abs_error": 1.2354717254638672,
+      "mean_abs_error": 0.008716220283882433,
+      "valid_token_max_abs_error": 0.026520729064941406,
+      "cls_max_abs_error": 0.010399818420410156,
+      "finite": true
+    },
+    {
+      "boundary": 8,
+      "max_abs_error": 2.703280448913574,
+      "mean_abs_error": 0.0093310046575468,
+      "valid_token_max_abs_error": 0.03799009323120117,
+      "cls_max_abs_error": 0.010251998901367188,
+      "finite": true
+    },
+    {
+      "boundary": 9,
+      "max_abs_error": 4.033175468444824,
+      "mean_abs_error": 0.010312308596157463,
+      "valid_token_max_abs_error": 0.0525364875793457,
+      "cls_max_abs_error": 0.014315605163574219,
+      "finite": true
+    },
+    {
+      "boundary": 10,
+      "max_abs_error": 3.759469985961914,
+      "mean_abs_error": 0.009661041115533347,
+      "valid_token_max_abs_error": 0.05217933654785156,
+      "cls_max_abs_error": 0.017744064331054688,
+      "finite": true
+    },
+    {
+      "boundary": 11,
+      "max_abs_error": 4.048683166503906,
+      "mean_abs_error": 0.01045321913234292,
+      "valid_token_max_abs_error": 0.07271432876586914,
+      "cls_max_abs_error": 0.014475107192993164,
+      "finite": true
+    },
+    {
+      "boundary": 12,
+      "max_abs_error": 0.771479606628418,
+      "mean_abs_error": 0.0059425250577513355,
+      "valid_token_max_abs_error": 0.0477551594376564,
+      "cls_max_abs_error": 0.008419252932071686,
+      "finite": true
+    }
+  ],
+  "boundary_valid_token_max_abs_error": 0.07271432876586914,
+  "boundary_tolerance": 0.12,
+  "boundary_passed": true,
+  "passed": true
+}

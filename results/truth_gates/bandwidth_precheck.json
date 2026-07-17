@@ -1,0 +1,28 @@
+{
+  "schema": "hpmpc_bandwidth_precheck_v1",
+  "checked_at": "2026-07-17T02:10:42+08:00",
+  "status": "BLOCKED_NO_PASSWORDLESS_SUDO",
+  "interface": "eth0",
+  "network_modified": false,
+  "parties": {
+    "p0": {
+      "public_ip": "47.99.65.0",
+      "sudo_n_true": false,
+      "root_qdisc": "mq",
+      "child_qdisc": "fq_codel"
+    },
+    "p1": {
+      "public_ip": "47.97.60.170",
+      "sudo_n_true": false,
+      "root_qdisc": "mq",
+      "child_qdisc": "fq_codel"
+    },
+    "p2": {
+      "public_ip": "116.62.10.248",
+      "sudo_n_true": false,
+      "root_qdisc": "mq",
+      "child_qdisc": "fq_codel"
+    }
+  },
+  "reason": "All three hosts reject sudo -n, so tc rate changes cannot be applied and reliably restored by an unattended run. Read-only qdisc inspection confirmed the default mq root remained untouched."
+}

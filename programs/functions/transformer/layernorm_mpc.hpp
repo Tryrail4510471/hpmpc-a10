@@ -25,8 +25,24 @@ namespace layernorm_mpc
 {
 constexpr int kHiddenSize = 768;
 constexpr int kNewtonIterations = 2;
-constexpr int kLutEntries = 8;
+// One low-end bucket plus half-power-of-two buckets from 2^-10 through
+// 2^10.5.  The narrower sqrt(2) ratio is needed for two Newton rounds to keep
+// the normalized output below the 1e-2 BERT regression tolerance.
+// Comparisons are batched into one protocol call, so the finer table adds
+// bandwidth but no online comparison rounds.
+constexpr int kLutEntries = 43;
 constexpr FLOATTYPE kEpsilon = FLOATTYPE(1.0e-5);
+constexpr UINT_TYPE kInverseSqrtVarianceScale = UINT_TYPE(256);
+constexpr UINT_TYPE kInverseSqrtRestoreScale = UINT_TYPE(16);
+constexpr int kLowInputScaleShift = 1;
+constexpr int kHighInputScaleShift = 4;
+constexpr int kExtremeInputScaleShift = 6;
+constexpr FLOATTYPE kHighMagnitudeThreshold = FLOATTYPE(48);
+constexpr FLOATTYPE kExtremeMagnitudeThreshold = FLOATTYPE(384);
+// Newton explicitly forms r^2 in Q12.20, so its input cannot be smaller than
+// roughly 1/2048.  Clamp only the reciprocal path; a constant row is still
+// centered to exactly zero and therefore produces beta, not a spurious value.
+constexpr FLOATTYPE kMinimumScaledVariance = FLOATTYPE(0.00064);
 
 template <typename Share>
 using AShare = Additive_Share<DATATYPE, Share>;
@@ -150,24 +166,34 @@ void multiply_bit(const AShare<Share>* bit, const AShare<Share>* value, AShare<S
         out[i].complete_mult_without_trunc();
 }
 
-// Eight magnitude buckets provide a public-constant seed. The secret bucket
+// Magnitude buckets provide a public-constant seed. The secret bucket
 // bits are obtained from the existing LTZ/A2B comparison and returned as
 // arithmetic 0/1 shares. This is the secure equivalent of decoding a small
-// LUT index; directly shifting an additive share is not valid.
+// LUT index; directly shifting an additive share is not valid.  The caller
+// first multiplies the variance by 256.  This keeps r^2 below the Q12.20 ring
+// limit for epsilon/4 while moving BERT embedding variances into the same
+// representable domain as post-attention/FFN variances.
 template <typename Share>
 void inverse_sqrt_seed(const AShare<Share>* z, AShare<Share>* seed, int rows)
 {
     using A = AShare<Share>;
-    constexpr std::array<FLOATTYPE, kLutEntries - 1> thresholds = {
-        FLOATTYPE(0.5), FLOATTYPE(0.75), FLOATTYPE(1.0), FLOATTYPE(1.5),
-        FLOATTYPE(4.0), FLOATTYPE(10.0), FLOATTYPE(18.0)};
-    // Seeds are 1/sqrt(bucket midpoint), rounded to Q12.20. The intervals are
-    // cover both normalized activations (variance around one) and BERT
-    // post-FFN residuals, whose online variance is commonly in [2, 18].
-    constexpr std::array<FLOATTYPE, kLutEntries> seeds = {
-        FLOATTYPE(2.000000000), FLOATTYPE(1.264911064), FLOATTYPE(1.069044968),
-        FLOATTYPE(0.894427191), FLOATTYPE(0.632455532), FLOATTYPE(0.377964473),
-        FLOATTYPE(0.267261242), FLOATTYPE(0.223606798)};
+    std::array<FLOATTYPE, kLutEntries - 1> thresholds{};
+    for (int k = 0; k < kLutEntries - 1; ++k)
+        thresholds[k] = std::pow(FLOATTYPE(2), FLOATTYPE(-10) + FLOATTYPE(k) / FLOATTYPE(2));
+
+    std::array<FLOATTYPE, kLutEntries> seeds{};
+    // Use the geometric midpoint of the representable Newton floor and the
+    // first 2^-10 threshold for the low-end bucket.
+    const FLOATTYPE scaled_epsilon_floor = kMinimumScaledVariance;
+    seeds[0] = FLOATTYPE(1) /
+               std::sqrt(std::sqrt(scaled_epsilon_floor * thresholds[0]));
+    for (int k = 1; k < kLutEntries - 1; ++k)
+        seeds[k] = FLOATTYPE(1) /
+                   std::sqrt(std::sqrt(thresholds[k - 1] * thresholds[k]));
+    // Final representable interval is [2^10.5,2^11).  Q12.20 itself ends just
+    // below 2^11, so no larger finite threshold can be encoded.
+    seeds[kLutEntries - 1] =
+        FLOATTYPE(1) / std::sqrt(std::sqrt(thresholds[kLutEntries - 2] * FLOATTYPE(2048)));
 
     std::vector<A> comparisons((kLutEntries - 1) * rows);
     std::vector<A> less((kLutEntries - 1) * rows);
@@ -242,11 +268,91 @@ void layernorm_mpc_forward(const AShare<Share>* input,
 
     const int elements = packed_rows * hidden_size;
     const UINT_TYPE reciprocal_hidden = fixed(FLOATTYPE(1) / hidden_size);
-    // Q12.20 can represent values only in [-2048, 2048). A post-FFN outlier
-    // slightly above |45.25| would make x^2 wrap that ring. LayerNorm is scale
-    // invariant, so compute statistics on x/2 and scale epsilon by 1/4.
-    std::vector<A> working(input, input + elements);
-    trunc_exact_in_place(working.data(), elements, 1);
+    // Q12.20 needs two scales.  Embedding rows have variance around 1e-3 and
+    // lose too much precision if divided by 16, while fine-tuned FFN rows can
+    // contain |x|>250 and overflow a square after division by only 2.  Select
+    // x/2 for rows with every |x_i|<48, x/16 for ordinary FFN outliers, and
+    // x/64 once |x_i| reaches 384. The last tier covers late-layer values near
+    // 800 without overflowing a three-square reduction. Selection bits stay
+    // secret and are SIMD-packed exactly like their logical rows.
+    std::vector<A> magnitude_tests(4 * elements);
+    for (int index = 0; index < elements; ++index)
+    {
+        magnitude_tests[index] =
+            input[index] - A(fixed(kHighMagnitudeThreshold));
+        magnitude_tests[elements + index] =
+            input[index] + A(fixed(kHighMagnitudeThreshold));
+        magnitude_tests[2 * elements + index] =
+            input[index] - A(fixed(kExtremeMagnitudeThreshold));
+        magnitude_tests[3 * elements + index] =
+            input[index] + A(fixed(kExtremeMagnitudeThreshold));
+    }
+    std::vector<A> magnitude_ltz(4 * elements);
+    pack_additive<0, BITLENGTH>(
+        magnitude_tests.data(), magnitude_ltz.data(), 4 * elements,
+        LTZ<0, BITLENGTH, Share, DATATYPE>);
+    std::vector<A> large_count(packed_rows, A(UINT_TYPE(0)));
+    std::vector<A> extreme_count(packed_rows, A(UINT_TYPE(0)));
+    for (int row = 0; row < packed_rows; ++row)
+        for (int col = 0; col < hidden_size; ++col)
+        {
+            const int index = row * hidden_size + col;
+            const A positive_large = A(UINT_TYPE(1)) - magnitude_ltz[index];
+            const A negative_large = magnitude_ltz[elements + index];
+            large_count[row] = large_count[row] + positive_large + negative_large;
+            const A positive_extreme =
+                A(UINT_TYPE(1)) - magnitude_ltz[2 * elements + index];
+            const A negative_extreme = magnitude_ltz[3 * elements + index];
+            extreme_count[row] =
+                extreme_count[row] + positive_extreme + negative_extreme;
+        }
+    std::vector<A> negative_counts(2 * packed_rows);
+    for (int row = 0; row < packed_rows; ++row)
+    {
+        negative_counts[row] = A(UINT_TYPE(0)) - large_count[row];
+        negative_counts[packed_rows + row] =
+            A(UINT_TYPE(0)) - extreme_count[row];
+    }
+    std::vector<A> nonzero_rows(2 * packed_rows);
+    pack_additive<0, BITLENGTH>(
+        negative_counts.data(), nonzero_rows.data(), 2 * packed_rows,
+        LTZ<0, BITLENGTH, Share, DATATYPE>);
+    std::vector<A> large_row(nonzero_rows.begin(),
+                             nonzero_rows.begin() + packed_rows);
+    std::vector<A> extreme_row(nonzero_rows.begin() + packed_rows,
+                               nonzero_rows.end());
+
+    std::vector<A> low_working(input, input + elements);
+    std::vector<A> high_working(input, input + elements);
+    std::vector<A> extreme_working(input, input + elements);
+    trunc_exact_in_place(low_working.data(), elements, kLowInputScaleShift);
+    trunc_exact_in_place(high_working.data(), elements, kHighInputScaleShift);
+    trunc_exact_in_place(extreme_working.data(), elements,
+                         kExtremeInputScaleShift);
+    std::vector<A> high_delta(elements);
+    std::vector<A> extreme_delta(elements);
+    std::vector<A> broadcast_large(elements);
+    std::vector<A> broadcast_extreme(elements);
+    for (int row = 0; row < packed_rows; ++row)
+        for (int col = 0; col < hidden_size; ++col)
+        {
+            const int index = row * hidden_size + col;
+            high_delta[index] = high_working[index] - low_working[index];
+            extreme_delta[index] =
+                extreme_working[index] - high_working[index];
+            broadcast_large[index] = large_row[row];
+            broadcast_extreme[index] = extreme_row[row];
+        }
+    std::vector<A> selected_high_delta(elements);
+    std::vector<A> selected_extreme_delta(elements);
+    multiply_bit<Share>(broadcast_large.data(), high_delta.data(),
+                        selected_high_delta.data(), elements);
+    multiply_bit<Share>(broadcast_extreme.data(), extreme_delta.data(),
+                        selected_extreme_delta.data(), elements);
+    std::vector<A> working(elements);
+    for (int index = 0; index < elements; ++index)
+        working[index] = low_working[index] + selected_high_delta[index] +
+                         selected_extreme_delta[index];
     std::vector<A> mean(packed_rows);
     if (hidden_size == kHiddenSize)
     {
@@ -284,14 +390,42 @@ void layernorm_mpc_forward(const AShare<Share>* input,
 
     std::vector<A> x2(elements);
     multiply_fixed<Share>(working.data(), working.data(), x2.data(), elements);
-    // Scale square terms before reduction. For variance around 3, summing 768
-    // Q12.20 squares first can exceed the signed 32-bit ring range.
-    std::vector<A> scaled_x2(elements);
-    multiply_public_fixed<Share>(x2.data(), reciprocal_hidden, scaled_x2.data(), elements);
     std::vector<A> ex2(packed_rows, A(UINT_TYPE(0)));
-    for (int row = 0; row < packed_rows; ++row)
-        for (int col = 0; col < hidden_size; ++col)
-            ex2[row] = ex2[row] + scaled_x2[row * hidden_size + col];
+    if (hidden_size == kHiddenSize)
+    {
+        // Do not divide all 768 small embedding squares independently: each
+        // Q20 public multiply may discard almost one raw LSB, and 768 such
+        // losses are comparable to an embedding variance around 1e-3.  Average
+        // triplets first, sum 256 values, then shift once.  This also keeps a
+        // post-FFN E[x^2] around 3 below the signed ring limit (256*3 < 2048).
+        constexpr int groups = kHiddenSize / 3;
+        std::vector<A> triplet_sums(packed_rows * groups);
+        std::vector<A> triplet_means(packed_rows * groups);
+        for (int row = 0; row < packed_rows; ++row)
+            for (int group = 0; group < groups; ++group)
+            {
+                const int base = row * hidden_size + group * 3;
+                triplet_sums[row * groups + group] =
+                    x2[base] + x2[base + 1] + x2[base + 2];
+            }
+        multiply_public_fixed<Share>(triplet_sums.data(), fixed(FLOATTYPE(1) / FLOATTYPE(3)),
+                                     triplet_means.data(), packed_rows * groups);
+        for (int row = 0; row < packed_rows; ++row)
+        {
+            for (int group = 0; group < groups; ++group)
+                ex2[row] = ex2[row] + triplet_means[row * groups + group];
+        }
+        trunc_exact_in_place(ex2.data(), packed_rows, 8);
+    }
+    else
+    {
+        // Generic widths retain the previous pre-scaled reduction.
+        std::vector<A> scaled_x2(elements);
+        multiply_public_fixed<Share>(x2.data(), reciprocal_hidden, scaled_x2.data(), elements);
+        for (int row = 0; row < packed_rows; ++row)
+            for (int col = 0; col < hidden_size; ++col)
+                ex2[row] = ex2[row] + scaled_x2[row * hidden_size + col];
+    }
     std::vector<A> mean2(packed_rows);
     multiply_fixed<Share>(mean.data(), mean.data(), mean2.data(), packed_rows);
     std::vector<A> raw_variance(packed_rows);
@@ -308,12 +442,41 @@ void layernorm_mpc_forward(const AShare<Share>* input,
         nonnegative_bit[row] = A(UINT_TYPE(1)) - negative[row];
     std::vector<A> nonnegative_variance(packed_rows);
     multiply_bit<Share>(nonnegative_bit.data(), raw_variance.data(), nonnegative_variance.data(), packed_rows);
-    std::vector<A> variance_eps(packed_rows);
+    // 256*Var(working) is 64*v, v, or v/16 for the three scales. Add epsilon
+    // at the matching scale. The common restore factor 16 yields the same
+    // normalized result in every branch.
+    std::vector<A> scaled_variance(packed_rows);
+    const UINT_TYPE low_epsilon = fixed(FLOATTYPE(64) * kEpsilon);
+    const UINT_TYPE high_epsilon = fixed(kEpsilon);
+    const UINT_TYPE extreme_epsilon = fixed(kEpsilon / FLOATTYPE(16));
     for (int row = 0; row < packed_rows; ++row)
-        variance_eps[row] = nonnegative_variance[row] + A(fixed(kEpsilon / FLOATTYPE(4)));
+        scaled_variance[row] =
+            nonnegative_variance[row].mult_public(kInverseSqrtVarianceScale) +
+            A(low_epsilon) +
+            large_row[row].mult_public(high_epsilon - low_epsilon) +
+            extreme_row[row].mult_public(extreme_epsilon - high_epsilon);
 
+    // A constant or nearly constant row would ask Newton to form an
+    // unrepresentable r^2. Securely clamp only its reciprocal input to the
+    // smallest value for which two Q12.20 Newton rounds are safe.
+    std::vector<A> floor_delta(packed_rows);
+    for (int row = 0; row < packed_rows; ++row)
+        floor_delta[row] = scaled_variance[row] - A(fixed(kMinimumScaledVariance));
+    std::vector<A> below_floor(packed_rows);
+    pack_additive<0, BITLENGTH>(
+        floor_delta.data(), below_floor.data(), packed_rows,
+        LTZ<0, BITLENGTH, Share, DATATYPE>);
+    std::vector<A> above_floor(packed_rows);
+    for (int row = 0; row < packed_rows; ++row)
+        above_floor[row] = A(UINT_TYPE(1)) - below_floor[row];
+    std::vector<A> retained_delta(packed_rows);
+    multiply_bit<Share>(above_floor.data(), floor_delta.data(),
+                        retained_delta.data(), packed_rows);
+    for (int row = 0; row < packed_rows; ++row)
+        scaled_variance[row] =
+            retained_delta[row] + A(fixed(kMinimumScaledVariance));
     std::vector<A> reciprocal_sqrt(packed_rows);
-    inverse_sqrt<Share>(variance_eps.data(), reciprocal_sqrt.data(), packed_rows);
+    inverse_sqrt<Share>(scaled_variance.data(), reciprocal_sqrt.data(), packed_rows);
 
     std::vector<A> centered(elements);
     std::vector<A> broadcast_r(elements);
@@ -322,7 +485,7 @@ void layernorm_mpc_forward(const AShare<Share>* input,
         {
             const int index = row * hidden_size + col;
             centered[index] = working[index] - mean[row];
-            broadcast_r[index] = reciprocal_sqrt[row];
+            broadcast_r[index] = reciprocal_sqrt[row].mult_public(kInverseSqrtRestoreScale);
         }
     std::vector<A> normalized(elements);
     multiply_fixed<Share>(centered.data(), broadcast_r.data(), normalized.data(), elements);

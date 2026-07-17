@@ -1,0 +1,31 @@
+{
+  "errors": [
+    "mrpc_accuracy: status='BLOCKED_MISSING_FID203_RUNS'; COMPLETE required",
+    "rte_accuracy: status='BLOCKED_MISSING_FID203_RUNS'; COMPLETE required",
+    "performance: missing or empty result file: p0_patch/results/truth_gates/performance_missing.json",
+    "bandwidth: missing or empty result file: p0_patch/results/truth_gates/bandwidth_missing.json"
+  ],
+  "fid": 203,
+  "required_keys": [
+    "mrpc_accuracy",
+    "rte_accuracy",
+    "latency_batch1",
+    "comm_gb_batch1",
+    "bandwidth_1g",
+    "bandwidth_10g",
+    "bandwidth_15g"
+  ],
+  "schema": "hpmpc_fid203_collection_gate_v1",
+  "source_sha256": {
+    "mrpc_accuracy": "7207465aed50a58af4435fc2ed4ff77fb6232737a5140980d13fa3ab1309b951",
+    "rte_accuracy": "b1166b126061faea09a1f2cb224aca2fd75cba1ac0dc5c079685920ea8b941f0"
+  },
+  "sources": {
+    "bandwidth": "p0_patch/results/truth_gates/bandwidth_missing.json",
+    "mrpc_accuracy": "p0_patch/results/truth_gates/accuracy_mrpc_missing.json",
+    "performance": "p0_patch/results/truth_gates/performance_missing.json",
+    "rte_accuracy": "p0_patch/results/truth_gates/accuracy_rte_missing.json"
+  },
+  "status": "BLOCKED",
+  "table_written": false
+}

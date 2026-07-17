@@ -1,0 +1,32 @@
+{
+  "reference": "/home/user/hpmpc/tests/data/bert_base_reference/mrpc/logits.npy",
+  "mpc_output": "/home/user/hpmpc/results/bert_3pc_runs/reconnect_mrpc_fid203_evidence_v2_20260717/output/logits_q20.bin",
+  "shape": [
+    1,
+    2
+  ],
+  "reference_logits": [
+    [
+      -2.325064182281494,
+      2.6336236000061035
+    ]
+  ],
+  "mpc_logits": [
+    [
+      -2.315715789794922,
+      2.622570037841797
+    ]
+  ],
+  "max_abs_error": 0.01105356216430664,
+  "mean_abs_error": 0.010200977325439453,
+  "finite": true,
+  "reference_prediction": [
+    1
+  ],
+  "mpc_prediction": [
+    1
+  ],
+  "prediction_match": true,
+  "tolerance": 0.5,
+  "passed": true
+}

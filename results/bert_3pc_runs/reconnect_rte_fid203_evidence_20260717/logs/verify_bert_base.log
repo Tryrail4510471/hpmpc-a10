@@ -1,0 +1,32 @@
+{
+  "reference": "/home/user/hpmpc/tests/data/bert_base_reference/rte/logits.npy",
+  "mpc_output": "/home/user/hpmpc/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/output/logits_q20.bin",
+  "shape": [
+    1,
+    2
+  ],
+  "reference_logits": [
+    [
+      -0.31031644344329834,
+      -0.1765482872724533
+    ]
+  ],
+  "mpc_logits": [
+    [
+      -0.35479068756103516,
+      -0.15393829345703125
+    ]
+  ],
+  "max_abs_error": 0.044474244117736816,
+  "mean_abs_error": 0.03354211896657944,
+  "finite": true,
+  "reference_prediction": [
+    1
+  ],
+  "mpc_prediction": [
+    1
+  ],
+  "prediction_match": true,
+  "tolerance": 0.5,
+  "passed": true
+}

@@ -1,0 +1,33 @@
+{
+  "batch": 1,
+  "failure_reasons": [],
+  "fid": 203,
+  "layers": 12,
+  "link_gbps": 15.0,
+  "method": "serial",
+  "metrics": {
+    "comm_gb": 28.878000256,
+    "gpu_mem_mb": 251.0,
+    "latency_ms": 83947.0,
+    "nic_util_pct": 11.797920197584984,
+    "throughput_sps": 0.011912277984919055
+  },
+  "metrics_basis": {
+    "comm_gb": "sum of three parties' protocol-log send_mb / 1000",
+    "gpu_mem_mb": "maximum nvidia-smi memory.used sample across all parties",
+    "latency_ms": "controller wall time around concurrent three-party launch",
+    "nic_util_pct": "max per-party protocol-log send_mb / wall time / configured link_gbps"
+  },
+  "native_manifest": "manifest.json",
+  "native_manifest_sha256": "5d0ce015dae3dcf385a66612fa2388bf123a14cccf1e6c00b541cef06b229706",
+  "parties": 3,
+  "party_logs": [
+    "logs/p0.log",
+    "logs/p1.log",
+    "logs/p2.log"
+  ],
+  "schema": "hpmpc_fid203_benchmark_run_v1",
+  "scope": "full-bert-e2e",
+  "status": "COMPLETE",
+  "task": "rte"
+}

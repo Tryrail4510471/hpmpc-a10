@@ -1,0 +1,310 @@
+{
+  "build": {
+    "archive": "/home/user/hpmpc/executables/bert_base_fid203",
+    "binary_hashes": {
+      "p0": {
+        "consistent": true,
+        "deployed": "c98518dc41a78e4444cb0502401384fe85603d264e8c736a6714705c2f6dc802",
+        "p0_archive": "c98518dc41a78e4444cb0502401384fe85603d264e8c736a6714705c2f6dc802"
+      },
+      "p1": {
+        "consistent": true,
+        "deployed": "b27a60ebbd7d8eff85a3bed6696ad4e7f9f708f09abe3508059badc52569af05",
+        "p0_archive": "b27a60ebbd7d8eff85a3bed6696ad4e7f9f708f09abe3508059badc52569af05"
+      },
+      "p2": {
+        "consistent": true,
+        "deployed": "6e389345402a0f93d52df6c2e2678a520edc19bc0bf0b93e0db9bc6e80c36b83",
+        "p0_archive": "6e389345402a0f93d52df6c2e2678a520edc19bc0bf0b93e0db9bc6e80c36b83"
+      }
+    },
+    "no_build": true,
+    "status": "reused"
+  },
+  "cluster": {
+    "gpu": "NVIDIA A10 24GB",
+    "network": "15Gbps private",
+    "parties": {
+      "p0": {
+        "exit_code": 0,
+        "gpu_mean_utilization_percent": 5.950617283950617,
+        "gpu_peak_memory_mb": 251.0,
+        "gpu_peak_utilization_percent": 63.0,
+        "gpu_samples": 81,
+        "internal_ip": "172.24.178.175",
+        "latency_ms": 77922.776,
+        "log": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p0.log",
+        "log_sha256": "e8c8305e627dc4de909e56f1d774b92e84e5a1e564424013a57a83a00e5555aa",
+        "public_ip": "47.99.65.0",
+        "send_mb": 18570.000128
+      },
+      "p1": {
+        "exit_code": 0,
+        "gpu_mean_utilization_percent": 6.1625,
+        "gpu_peak_memory_mb": 251.0,
+        "gpu_peak_utilization_percent": 63.0,
+        "gpu_samples": 80,
+        "internal_ip": "172.24.178.176",
+        "latency_ms": 77921.904,
+        "log": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p1.log",
+        "log_sha256": "f9b6512689541a126fae1ab5f4e845a2dbf298150882eaf0527fdf9980b38dff",
+        "public_ip": "47.97.60.170",
+        "send_mb": 5154.0
+      },
+      "p2": {
+        "exit_code": 0,
+        "gpu_mean_utilization_percent": 3.949367088607595,
+        "gpu_peak_memory_mb": 249.0,
+        "gpu_peak_utilization_percent": 64.0,
+        "gpu_samples": 79,
+        "internal_ip": "172.24.178.177",
+        "latency_ms": 77922.23199999999,
+        "log": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p2.log",
+        "log_sha256": "d4d85e3af6439ac72f0f8e03771771e052eae9cea85e4df1d3f1acfb3bbd3c8e",
+        "public_ip": "116.62.10.248",
+        "send_mb": 5154.000128
+      }
+    },
+    "repo": "/home/user/hpmpc",
+    "ssh_user": "user"
+  },
+  "contract": {
+    "DATAOWNER": 1,
+    "DATTYPE": 512,
+    "FRACTIONAL": 20,
+    "FUNCTION_IDENTIFIER": 203,
+    "MODELOWNER": 0,
+    "PROCESS_NUM": 1,
+    "PROTOCOL": 5,
+    "PUBLIC_WEIGHTS": 0,
+    "SPLITROLES": 0,
+    "TRUNC_APPROACH": 2,
+    "TRUNC_DELAYED": 0,
+    "USE_CUDA_GEMM": 2
+  },
+  "created_at_utc": "2026-07-16T18:04:27.863514+00:00",
+  "debug": {
+    "collected_dir": null,
+    "enabled": false
+  },
+  "execution": {
+    "cluster_peak_gpu_memory_mb": 251.0,
+    "complete": true,
+    "controller_wall_ms": 83947,
+    "end_to_end_latency_ms": 77922.776,
+    "output_hash_status": "passed",
+    "party_output_sha256": {
+      "p0": "38a4c867b754ea3dcc23b806da075458ab8ab6ec1dbb221c929ede0e2792e487",
+      "p1": "38a4c867b754ea3dcc23b806da075458ab8ab6ec1dbb221c929ede0e2792e487",
+      "p2": "38a4c867b754ea3dcc23b806da075458ab8ab6ec1dbb221c929ede0e2792e487"
+    },
+    "per_party": {
+      "p0": {
+        "gpu_mean_utilization_percent": 5.950617283950617,
+        "gpu_peak_memory_mb": 251.0,
+        "gpu_peak_utilization_percent": 63.0,
+        "gpu_samples": 81,
+        "latency_ms": 77922.776,
+        "send_mb": 18570.000128
+      },
+      "p1": {
+        "gpu_mean_utilization_percent": 6.1625,
+        "gpu_peak_memory_mb": 251.0,
+        "gpu_peak_utilization_percent": 63.0,
+        "gpu_samples": 80,
+        "latency_ms": 77921.904,
+        "send_mb": 5154.0
+      },
+      "p2": {
+        "gpu_mean_utilization_percent": 3.949367088607595,
+        "gpu_peak_memory_mb": 249.0,
+        "gpu_peak_utilization_percent": 64.0,
+        "gpu_samples": 79,
+        "latency_ms": 77922.23199999999,
+        "send_mb": 5154.000128
+      }
+    },
+    "total_send_mb": 28878.000256
+  },
+  "failure_reasons": [],
+  "log_files": {
+    "build.log": {
+      "bytes": 774,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/build.log",
+      "sha256": "63a9d484de8256ccd616fa837259fcec5b9862cab8ac62f1f93b239c269729f1"
+    },
+    "p0.log": {
+      "bytes": 7815,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p0.log",
+      "sha256": "e8c8305e627dc4de909e56f1d774b92e84e5a1e564424013a57a83a00e5555aa"
+    },
+    "p0_gpu.csv": {
+      "bytes": 2598,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p0_gpu.csv",
+      "sha256": "f423500a27c23d4fda0c23b3c298438511f33105172d87af176870dce8e00ccb"
+    },
+    "p1.log": {
+      "bytes": 7961,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p1.log",
+      "sha256": "f9b6512689541a126fae1ab5f4e845a2dbf298150882eaf0527fdf9980b38dff"
+    },
+    "p1_gpu.csv": {
+      "bytes": 2572,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p1_gpu.csv",
+      "sha256": "011eeba3ba66323072501ce8147294887dead3801d61f8237f672894ff9fab97"
+    },
+    "p2.log": {
+      "bytes": 7969,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p2.log",
+      "sha256": "d4d85e3af6439ac72f0f8e03771771e052eae9cea85e4df1d3f1acfb3bbd3c8e"
+    },
+    "p2_gpu.csv": {
+      "bytes": 2538,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/p2_gpu.csv",
+      "sha256": "67faed81dcce5ff7a16d766ef4da69e65d4fc125ba878fc08068b36b7f3d58b4"
+    },
+    "precheck_p0.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/precheck_p0.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "precheck_p1.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/precheck_p1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "precheck_p2.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/precheck_p2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "private_weight_guard_p1.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/private_weight_guard_p1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "private_weight_guard_p2.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/private_weight_guard_p2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ssh_p0.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/ssh_p0.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ssh_p1.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/ssh_p1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ssh_p2.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/ssh_p2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stage_p0.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/stage_p0.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stage_p1.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/stage_p1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stage_p2.log": {
+      "bytes": 0,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/stage_p2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "task_binding.log": {
+      "bytes": 88,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/task_binding.log",
+      "sha256": "496d8064814292fe22bb0987212163cfe4a1d2a69afa1d154710480d6fe7a9a2"
+    },
+    "verify_bert_base.log": {
+      "bytes": 657,
+      "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/logs/verify_bert_base.log",
+      "sha256": "411c5f04285125e372931797aee377a9e8882de729510fd3ff7b1a5a02c7d489"
+    }
+  },
+  "metrics_file": {
+    "path": "/Users/tryrail/Documents/hpmpc-real-3pc/p0_patch/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/native_metrics.json",
+    "sha256": "e6d336f1c2a010e3c037fe44a6d06448fe727794675c56d6883f03da4f5f3e14"
+  },
+  "passed": true,
+  "public_inputs": {
+    "hashes": {
+      "attention_mask_u8.bin": {
+        "consistent": true,
+        "p0": "cc60eefc7079ce23073ed551e413061febd6553dc79f510f945a28b57e8664af",
+        "p1": "cc60eefc7079ce23073ed551e413061febd6553dc79f510f945a28b57e8664af",
+        "p2": "cc60eefc7079ce23073ed551e413061febd6553dc79f510f945a28b57e8664af"
+      },
+      "token_ids_u32.bin": {
+        "consistent": true,
+        "p0": "125f782e25a92735331c6efecd6974dc553372445e3d8db5f5beeb7102179e49",
+        "p1": "125f782e25a92735331c6efecd6974dc553372445e3d8db5f5beeb7102179e49",
+        "p2": "125f782e25a92735331c6efecd6974dc553372445e3d8db5f5beeb7102179e49"
+      },
+      "token_type_ids_u32.bin": {
+        "consistent": true,
+        "p0": "1e5e7c2631905effd4c8ea9d98cee36d1be4e3d3799a02b8194563792bdba605",
+        "p1": "1e5e7c2631905effd4c8ea9d98cee36d1be4e3d3799a02b8194563792bdba605",
+        "p2": "1e5e7c2631905effd4c8ea9d98cee36d1be4e3d3799a02b8194563792bdba605"
+      }
+    },
+    "status": "passed"
+  },
+  "run_id": "reconnect_rte_fid203_evidence_20260717",
+  "schema": "hpmpc_bert_3pc_run_v1",
+  "status": "passed",
+  "synchronization": {
+    "private_weights_transferred": false,
+    "status": "passed"
+  },
+  "task": "rte",
+  "task_binding": {
+    "batch": 1,
+    "expected_model": "textattack/bert-base-uncased-RTE",
+    "reference_dir": "/home/user/hpmpc/tests/data/bert_base_reference/rte",
+    "sequence_length": 128,
+    "weights_dir_p0_only": "/home/user/hpmpc/nn/Pygeon/weights/rte"
+  },
+  "verification": {
+    "report": {
+      "finite": true,
+      "max_abs_error": 0.044474244117736816,
+      "mean_abs_error": 0.03354211896657944,
+      "mpc_logits": [
+        [
+          -0.35479068756103516,
+          -0.15393829345703125
+        ]
+      ],
+      "mpc_output": "/home/user/hpmpc/results/bert_3pc_runs/reconnect_rte_fid203_evidence_20260717/output/logits_q20.bin",
+      "mpc_prediction": [
+        1
+      ],
+      "passed": true,
+      "prediction_match": true,
+      "reference": "/home/user/hpmpc/tests/data/bert_base_reference/rte/logits.npy",
+      "reference_logits": [
+        [
+          -0.31031644344329834,
+          -0.1765482872724533
+        ]
+      ],
+      "reference_prediction": [
+        1
+      ],
+      "shape": [
+        1,
+        2
+      ],
+      "tolerance": 0.5
+    },
+    "status": "passed"
+  }
+}

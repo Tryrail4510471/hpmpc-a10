@@ -44,6 +44,18 @@
 #include "programs/functions/transformer/layernorm_mpc.hpp"
 #elif FUNCTION_IDENTIFIER == 202
 #include "nn/PIGEON/architectures/bert_ffn.hpp"
+#elif FUNCTION_IDENTIFIER == 203
+#include "programs/functions/transformer/bert_base_program.hpp"
+#elif FUNCTION_IDENTIFIER == 204
+#include "programs/functions/transformer/gelu_mpc.hpp"
+#elif FUNCTION_IDENTIFIER == 205
+#include "programs/functions/transformer/bert_attention_test.hpp"
+#elif FUNCTION_IDENTIFIER == 206
+#include "programs/functions/transformer/bert_layer_test.hpp"
+#elif FUNCTION_IDENTIFIER == 207
+#include "programs/functions/transformer/bert_embedding_test.hpp"
+#elif FUNCTION_IDENTIFIER == 208
+#include "programs/functions/transformer/bert_pooler_test.hpp"
 #elif FUNCTION_IDENTIFIER < 400
 #include "programs/NN.hpp"
 #elif FUNCTION_IDENTIFIER >= 500 && FUNCTION_IDENTIFIER <= 534

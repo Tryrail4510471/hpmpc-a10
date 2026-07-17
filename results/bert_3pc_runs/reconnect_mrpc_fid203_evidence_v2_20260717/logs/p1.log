@@ -1,0 +1,87 @@
+P1, ONLINE, PID0: Sending to other players:0MB, 5154MB 
+P1, ONLINE PID0: Receiving from other players:0.000128MB, 5154MB 
+P1, PID0: Initialized circuit, waiting for all parties to connect ... 
+P1, PID0: All parties connected sucessfully, starting protocol and timer! 
+P1, PID0: Time measured to initialize program: 0.813911s 
+P1, PID0: Time measured to perform computation clock: 70.952910s 
+P1, PID0: Time measured to perform computation getTime: 78.392365s 
+P1, PID0: Time measured to perform computation chrono: 78.392362s 
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 1193
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 886.6
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 1228
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0.002
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0.065
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 2 Linear768x3072    MB SENT:10.49   MB RECEIVED:10.49    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 3 GELU    MB SENT:229.1   MB RECEIVED:229.1    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 4 Linear3072x768    MB SENT:6.955   MB RECEIVED:6.955    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 5 Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 6 LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Individual)-- ID: 7 LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Aggregated)-- LayerNormAffine    MB SENT:0   MB RECEIVED:0    ms LIVE: 0
+P1: --NN_STATS (Aggregated)-- Residual    MB SENT:0   MB RECEIVED:0    ms LIVE: 886.6
+P1: --NN_STATS (Aggregated)-- Linear3072x768    MB SENT:83.46   MB RECEIVED:83.46    ms LIVE: 1193
+P1: --NN_STATS (Aggregated)-- GELU    MB SENT:2749   MB RECEIVED:2749    ms LIVE: 0.065
+P1: --NN_STATS (Aggregated)-- LayerNorm    MB SENT:0   MB RECEIVED:0    ms LIVE: 1228
+P1: --NN_STATS (Aggregated)-- Linear768x3072    MB SENT:125.9   MB RECEIVED:125.9    ms LIVE: 0.002
+BERT_3PC party=1 task=mrpc wall_ms=80037 exit_code=0

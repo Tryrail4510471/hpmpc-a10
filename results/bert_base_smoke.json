@@ -1,0 +1,40 @@
+{
+  "schema": "hpmpc_fid203_smoke_v1",
+  "status": "COMPLETE_SMOKE_ONLY",
+  "fid": 203,
+  "layers": 12,
+  "parties": 3,
+  "protocol": 5,
+  "datatype": 512,
+  "fractional": 20,
+  "process_num": 1,
+  "splitroles": 0,
+  "use_cuda_gemm": 2,
+  "sequence_length": 128,
+  "results": {
+    "mrpc": {
+      "valid_tokens": 23,
+      "reference_logits": [-2.325064182281494, 2.6336236000061035],
+      "mpc_logits": [-2.315715789794922, 2.622570037841797],
+      "max_abs_error": 0.01105356216430664,
+      "mean_abs_error": 0.010200977325439453,
+      "prediction_match": true,
+      "online_seconds": 81.16728,
+      "debug_boundaries_enabled": true
+    },
+    "rte": {
+      "valid_tokens": 20,
+      "reference_logits": [-0.31031644344329834, -0.1765482872724533],
+      "mpc_logits": [-0.35479068756103516, -0.15393829345703125],
+      "max_abs_error": 0.044474244117736816,
+      "mean_abs_error": 0.03354211896657944,
+      "prediction_match": true,
+      "online_seconds": 78.268607,
+      "debug_boundaries_enabled": false,
+      "party_send_gb": {"p0": 18.57, "p1": 5.154, "p2": 5.154},
+      "aggregate_send_gb": 28.878
+    }
+  },
+  "paper_eligible": false,
+  "paper_gate_reason": "Single-sample correctness smoke only; full datasets and repeated performance evidence are pending."
+}
