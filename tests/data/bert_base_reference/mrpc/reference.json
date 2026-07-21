@@ -1,0 +1,27 @@
+{
+  "task": "mrpc",
+  "model": "textattack/bert-base-uncased-MRPC",
+  "revision": null,
+  "text_a": "The company released its quarterly results on Tuesday.",
+  "text_b": "On Tuesday, the firm published its quarterly financial results.",
+  "batch": 1,
+  "sequence_length": 128,
+  "valid_tokens": 23,
+  "logits": [
+    [
+      -2.325064182281494,
+      2.6336236000061035
+    ]
+  ],
+  "prediction": 1,
+  "layernorm_eps": 1e-12,
+  "files": {
+    "token_ids": "token_ids_u32.bin",
+    "token_type_ids": "token_type_ids_u32.bin",
+    "attention_mask": "attention_mask_u8.bin",
+    "logits": "logits.npy",
+    "pooler_output": "pooler_output.npy",
+    "embeddings": "embeddings.npy",
+    "encoder_boundaries": "encoder_boundaries.npz"
+  }
+}

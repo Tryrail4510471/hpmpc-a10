@@ -1,0 +1,27 @@
+{
+  "task": "rte",
+  "model": "textattack/bert-base-uncased-RTE",
+  "revision": null,
+  "text_a": "A soccer player is running across a field while spectators watch.",
+  "text_b": "An athlete is outdoors.",
+  "batch": 1,
+  "sequence_length": 128,
+  "valid_tokens": 20,
+  "logits": [
+    [
+      -0.31031644344329834,
+      -0.1765482872724533
+    ]
+  ],
+  "prediction": 1,
+  "layernorm_eps": 1e-12,
+  "files": {
+    "token_ids": "token_ids_u32.bin",
+    "token_type_ids": "token_type_ids_u32.bin",
+    "attention_mask": "attention_mask_u8.bin",
+    "logits": "logits.npy",
+    "pooler_output": "pooler_output.npy",
+    "embeddings": "embeddings.npy",
+    "encoder_boundaries": "encoder_boundaries.npz"
+  }
+}

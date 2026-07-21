@@ -1,0 +1,2 @@
+interface	rx_before	rx_after	rx_delta	tx_before	tx_after	tx_delta
+eth0	86603595460	92010893372	5407297912	82889918611	88069944025	5180025414
