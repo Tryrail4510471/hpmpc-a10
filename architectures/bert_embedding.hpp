@@ -13,6 +13,10 @@
 
 // BERT embeddings for the HPMPC arithmetic-share path.
 //
+// BertBase::embed 调用 BertEmbedding::forward。MODELOWNER 用公开 token id、
+// position、token type 在本地把三张表的对应行相加，只分享相加后的行和 γ、β。
+// 词表本身不进入协议。随后用 layernorm_mpc_forward(γ=1, β=0)，再秘密乘 γ、加 β。
+//
 // Public-input contract
 // ---------------------
 // token_ids and token_type_ids are deliberately plain uint32 vectors.  Every

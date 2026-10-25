@@ -252,6 +252,9 @@ void head_to_token_layout(const AShare<Share>* context,
 // split into 10-bit limbs.  HH + ((HL+LH)>>10) retains Q20 in the 32-bit ring;
 // LL is below one raw output LSB per scalar product and is omitted, matching
 // the already-tested bert_ffn::gemm_fixed strategy.
+// QK^T 与 AV：左右矩阵都是秘密激活，所以两侧都在这里拆 10-bit limb。
+// 固定权重的 Linear 已经由模型所有者拆好，走 bert_ffn::gemm_fixed。
+// 公式与 gemm_fixed 相同，低位乘低位被省略。groups 是 head-pack 的个数。
 template <typename Share>
 void gemm_dynamic_fixed(const AShare<Share>* left,
                         const AShare<Share>* right_transposed,
@@ -357,6 +360,16 @@ void add_key_padding_mask(AShare<Share>* scores,
 }
 }  // namespace detail
 
+// Multi-head attention，模块边界止于输出投影。残差和 LayerNorm 在 bert_layer.hpp。
+// 步骤与 BertAttentionBlock::forward 里的编号一致：
+//   1. bert_ffn::gemm_fixed 做联合 QKV。Q 权重和 bias 已除以 8，这里不再缩放。
+//   2. token_qkv_to_head_layout 本地重排两份 Trio 分量，无通信。
+//   3. gemm_dynamic_fixed 算 QK^T。CUDA 路径把 K 从 [sequence,head_dim] 转成 [head_dim,sequence]。
+//   4. add_key_padding_mask 加公开 -16。Q12.20 表示不了 -10000，且指数在约 -11 以下已为 0。
+//   5. softmax_mpc_forward。
+//   6. gemm_dynamic_fixed 算 AV。CPU 需要转置 V；CUDA 直接使用现有 [sequence,head_dim]。
+//   7. head_to_token_layout 后，gemm_fixed 做输出投影。
+//
 // Input/output physical layout is FlexNN's token-packed matrix:
 //   [ceil(batch*sequence_length/(DATTYPE/BITLENGTH)), 768]
 // and lane r represents logical token row r.  Q/K/V are locally converted to

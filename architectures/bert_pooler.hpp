@@ -16,6 +16,12 @@
 #include <vector>
 
 // BERT Pooler and two-class task head for the HPMPC arithmetic-share path.
+//
+// BertBase::pool_and_classify 先 forward 再 classify。
+// gather_cls 从 token-pack 的 lane 里取出每个样本的 CLS，只重排 Trio 的两份本地分量。
+// private_gemm_fixed 与 bert_ffn::gemm_fixed 是同一套 limb GEMM。
+// tanh_piecewise 在 [-2,2) 用 x*(c1+x^2*(c3+c5*x^2))，区间外饱和到 -1 或 +1。
+// classify 只做 768→2。两个 logit 的 argmax 留到揭示之后。
 // The input uses the global token-pack layout produced by bert_embedding.hpp:
 // logical_token=batch*sequence_length+position, then row/lane=divmod(token,lanes).
 namespace bert_pooler
