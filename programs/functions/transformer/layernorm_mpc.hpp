@@ -248,6 +248,8 @@ void inverse_sqrt(const AShare<Share>* z, AShare<Share>* reciprocal_sqrt, int ro
     }
 }
 
+// Embedding 与 BertLayer 的两处 Post-LN 都先用 γ=1、β=0 调用本函数，
+// 再在调用方用秘密 γ、β 做一次 multiply_fixed 和加法。本函数的 γ、β 因此是公开的。
 template <typename Share>
 void layernorm_mpc_forward(const AShare<Share>* input,
                            const std::vector<UINT_TYPE>& gamma,

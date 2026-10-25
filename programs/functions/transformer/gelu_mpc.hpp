@@ -98,6 +98,8 @@ void multiply_bit(const AShare<Share>* bit,
 
 // Secure piecewise GELU. Comparisons are batched in one A->B/MSB invocation;
 // all four cubics are evaluated with three vectorized Horner multiplications.
+// BertFFNBlock::forward 在 768→3072 之后调用 GELU()。x<-4 输出 0，x>=4 保持输入，
+// 中间四段三次的系数由 tools/fit_gelu_poly.py 拟合后量化到 Q12.20。
 template <typename Share>
 void gelu_mpc_forward(const AShare<Share>* input, AShare<Share>* output, int len)
 {
