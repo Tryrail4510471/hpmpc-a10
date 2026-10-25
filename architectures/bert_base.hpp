@@ -7,6 +7,12 @@
 // never retains twelve copies of the two-limb private Linear representation.
 // Public token/type ids select embedding rows at MODELOWNER; only the selected
 // rows and private affine/model parameters enter the MPC graph.
+//
+// FID=203（programs/functions/transformer/bert_base_program.hpp）只调用下面三个方法：
+//   embed()                  → bert_embedding::BertEmbedding::forward
+//   forward_layer_in_place() → bert_layer::BertLayerBlock::forward，然后 swap 掉旧激活
+//   pool_and_classify()      → bert_pooler::BertPooler::forward + classify
+// 返回的 logit 仍是算术分享，揭示发生在入口程序而不是这里。
 
 #include "bert_embedding.hpp"
 #include "bert_layer.hpp"

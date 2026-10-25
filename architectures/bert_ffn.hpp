@@ -36,6 +36,12 @@ using AShare = Additive_Share<DATATYPE, Share>;
 // Compute (A*W)>>FRACTIONAL without losing the Q40 high bits in the 32-bit
 // ring. W is pre-split by the model owner into 10-bit limbs. The low*low term
 // is below one output LSB per scalar product and is intentionally omitted.
+//
+// (a*b)>>20 = ah*bh + ((ah*bl + al*bh)>>10).  Attention 的 QKV、输出投影和
+// FFN 的两层 Linear 都走这里。权重在 load_and_share_model 里已经拆好；激活在函数内
+// 用 trunc_exact_in_place 拆 high。prepare_GEMM 在 USE_CUDA_GEMM>0 时把本地整数乘
+// 交给 CUTLASS，mask_and_send 与截断仍留在 CPU。两边都是秘密矩阵时用
+// bert_attention::detail::gemm_dynamic_fixed，而不是本函数。
 template <typename Share>
 void gemm_fixed(const AShare<Share>* input,
                 const AShare<Share>* weight_high,

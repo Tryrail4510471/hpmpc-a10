@@ -111,7 +111,10 @@ void private_layernorm(const AShare<Share>* input,
 }
 }  // namespace detail
 
-// Original BERT post-LN order:
+// Original BERT post-LN order, matching HuggingFace BertLayer in eval mode.
+// Dropout is absent.  BertAttentionBlock stops at the output projection, and
+// BertFFNBlock is called with include_residual_layernorm=false, so each
+// residual and each private-affine LayerNorm happens exactly once below.
 //   attention projection -> residual(input) -> LN1
 //   FFN Linear/GELU/Linear -> residual(LN1) -> LN2.
 //
