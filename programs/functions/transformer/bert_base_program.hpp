@@ -4,6 +4,18 @@
 // The graph is intentionally fixed-role and single-process.  With DATTYPE=512
 // a private two-limb encoder layer is close to 1 GiB before transient GEMM
 // buffers; creating split-role/process replicas would exceed the 28 GiB nodes.
+//
+// 调用链（实现都在 nn/PIGEON/architectures/，本文件只负责加载和释放）：
+//   BertBase::embed
+//     bert_embedding.hpp    公开 token 选行，三表相加后秘密分享，再 LayerNorm
+//   循环 12 次 BertBase::forward_layer_in_place
+//     bert_layer.hpp        Post-LN：Attention 残差 LN1，FFN 残差 LN2
+//       bert_attention.hpp  QKV、本地 lane 重排、QK^T、-16 mask、Softmax、AV、输出投影
+//       bert_ffn.hpp        gemm_fixed + gelu_mpc；本层关掉 FFN 自带的残差和 LN
+//   BertBase::pool_and_classify
+//     bert_pooler.hpp       本地收集 CLS，768→768，分段 tanh，768→2
+// 两个 logit 在 reveal_logits 之后才变回明文，argmax 不进 MPC。
+// MODELOWNER 读权重，DATAOWNER 不持有模型；token id、token type、padding mask 三方公开。
 #define RESULTTYPE DATATYPE
 #ifndef FUNCTION
 #define FUNCTION bert_base_program
@@ -236,6 +248,8 @@ void bert_base_program(DATATYPE* result)
     // Critical memory invariant: allocate/share one layer, run it, swap the
     // activation, then destroy that layer's high/low weights before loading
     // the next.  Never retain a vector<ModelShares> for all twelve layers.
+    // load_and_share_layer 按层把 QKV、Attention 输出、FFN 权重拆成 high/low 分享；
+    // layer 是循环局部变量，本轮 forward_layer_in_place 返回后即释放。
     for (int layer_index = 0; layer_index < bert_base::kLayers; ++layer_index)
     {
         bert_layer_test::ModelShares<Share> layer =

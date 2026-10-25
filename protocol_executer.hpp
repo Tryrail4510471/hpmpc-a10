@@ -38,23 +38,25 @@
 #include "programs/tutorials/matrix_operations_tutorial.hpp"
 #elif FUNCTION_IDENTIFIER == 65
 #include "programs/tutorials/YourFirstProgram.hpp"
-#elif FUNCTION_IDENTIFIER == 200
+// BERT-base Trio 前向。200–202、204 是可单独编译的算子；203 是完整分类图。
+// 205–208 只测单个子模块，生产路径不经过它们。图实现在 nn/PIGEON/architectures/。
+#elif FUNCTION_IDENTIFIER == 200  // softmax_mpc_forward，Attention 的分数归一化
 #include "programs/functions/transformer/softmax_mpc.hpp"
-#elif FUNCTION_IDENTIFIER == 201
+#elif FUNCTION_IDENTIFIER == 201  // layernorm_mpc_forward，Embedding 与两处 Post-LN 共用
 #include "programs/functions/transformer/layernorm_mpc.hpp"
-#elif FUNCTION_IDENTIFIER == 202
+#elif FUNCTION_IDENTIFIER == 202  // BertFFNBlock：Linear → GELU → Linear
 #include "nn/PIGEON/architectures/bert_ffn.hpp"
-#elif FUNCTION_IDENTIFIER == 203
+#elif FUNCTION_IDENTIFIER == 203  // bert_base_program：Embedding + 12 层 + Pooler
 #include "programs/functions/transformer/bert_base_program.hpp"
-#elif FUNCTION_IDENTIFIER == 204
+#elif FUNCTION_IDENTIFIER == 204  // gelu_mpc_forward，FFN 激活
 #include "programs/functions/transformer/gelu_mpc.hpp"
-#elif FUNCTION_IDENTIFIER == 205
+#elif FUNCTION_IDENTIFIER == 205  // Attention 回归，止于输出投影
 #include "programs/functions/transformer/bert_attention_test.hpp"
-#elif FUNCTION_IDENTIFIER == 206
+#elif FUNCTION_IDENTIFIER == 206  // 单层 BertLayer 回归
 #include "programs/functions/transformer/bert_layer_test.hpp"
-#elif FUNCTION_IDENTIFIER == 207
+#elif FUNCTION_IDENTIFIER == 207  // Embedding + LayerNorm 回归
 #include "programs/functions/transformer/bert_embedding_test.hpp"
-#elif FUNCTION_IDENTIFIER == 208
+#elif FUNCTION_IDENTIFIER == 208  // Pooler 与二分类头回归
 #include "programs/functions/transformer/bert_pooler_test.hpp"
 #elif FUNCTION_IDENTIFIER < 400
 #include "programs/NN.hpp"

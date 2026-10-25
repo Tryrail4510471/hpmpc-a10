@@ -256,6 +256,8 @@ void reciprocal_1_to_128(const AShare<Share>* sums, AShare<Share>* reciprocal, i
 
 // `packed_rows` counts Additive_Share rows. Each share contains
 // DATTYPE/BITLENGTH SIMD lanes, so this directly supports DATTYPE=512.
+// BertAttentionBlock 在公开 -16 mask 之后调用这里。顺序是行最大值、
+// negative_exp、按行求和、reciprocal_1_to_128 两轮牛顿，再乘回每个分数。
 template <typename Share>
 void softmax_mpc_forward(const AShare<Share>* input,
                          AShare<Share>* output,

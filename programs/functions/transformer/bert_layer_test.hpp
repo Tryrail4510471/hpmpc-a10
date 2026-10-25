@@ -120,6 +120,9 @@ void share_private_slice(const std::vector<UINT_TYPE>& owner_values,
     bert_ffn::receive_private_vector<Share>(values, destination);
 }
 
+// 把 HuggingFace 的 [out,in] Q20 权重拆成 10-bit high/low。
+// USE_CUDA_GEMM>0 时目的下标改成 [in,out]，与 CUTLASS 的物理布局一致；
+// CPU GEMM 保持 [out,in]。Q 的 /8 不在这里做，见 rounded_divide_q20_by_8。
 template <typename Share>
 void share_private_matrix(const std::vector<UINT_TYPE>& owner_values,
                           int output_features,
